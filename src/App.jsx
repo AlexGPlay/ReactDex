@@ -1,5 +1,6 @@
 import { Box, ChakraProvider, Flex } from "@chakra-ui/react";
 import * as React from "react";
+import BottomScreen from "./bottomScreen/BottomScreen";
 import Center from "./center/Center";
 import TopScreen from "./topScreen/TopScreen";
 
@@ -9,6 +10,7 @@ const App = () => (
       <Box width={800}>
         <TopScreen />
         <Center />
+        <BottomScreen />
       </Box>
     </Flex>
   </ChakraProvider>
