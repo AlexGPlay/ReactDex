@@ -1,19 +1,9 @@
 import { Box, Flex } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
-import { requestList } from "../api/requestList";
+import React from "react";
 import { capitalize } from "../util/capitalize";
 import ListItem from "./ListItem";
 
-const PokemonList = () => {
-  const [pokemon, setPokemon] = useState();
-  const [currentPokemon, setCurrentPokemon] = useState(148);
-
-  useEffect(() => {
-    requestList({ from: 0, to: 151 })
-      .then((response) => response.json())
-      .then(({ results }) => setPokemon(results));
-  }, []);
-
+const PokemonList = ({ pokemon, currentPokemon, setCurrentPokemon }) => {
   if (!pokemon) return <></>;
 
   const pokemonList = (() => {

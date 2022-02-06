@@ -3,7 +3,7 @@ import React from "react";
 import Screen from "./Screen";
 import Speaker from "./Speaker";
 
-const TopScreen = () => {
+const TopScreen = ({ pokemon, currentPokemon, setCurrentPokemon }) => {
   return (
     <Box
       bgColor="red.400"
@@ -20,7 +20,11 @@ const TopScreen = () => {
     >
       <Speaker />
       <Box w="90%" h="80%">
-        <Screen />
+        <Screen
+          currentPokemon={currentPokemon}
+          setCurrentPokemon={setCurrentPokemon}
+          pokemon={pokemon}
+        />
       </Box>
     </Box>
   );

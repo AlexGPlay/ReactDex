@@ -2,7 +2,7 @@ import { AspectRatio, Box, Flex, Grid } from "@chakra-ui/react";
 import React from "react";
 import PokemonList from "../components/PokemonList";
 
-const Info = () => {
+const Info = ({ pokemon, currentPokemon, setCurrentPokemon }) => {
   return (
     <Grid p={5} h="100%" w="100%" gridTemplateColumns="30% 70%">
       <Flex w="100%" h="100%" justifyContent="center" alignItems="center">
@@ -15,7 +15,11 @@ const Info = () => {
         ></Box>
       </Flex>
       <Flex w="100%" h="100%" justify="flex-end">
-        <PokemonList />
+        <PokemonList
+          currentPokemon={currentPokemon}
+          setCurrentPokemon={setCurrentPokemon}
+          pokemon={pokemon}
+        />
       </Flex>
     </Grid>
   );
