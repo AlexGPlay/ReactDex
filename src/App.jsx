@@ -6,13 +6,26 @@ import TopScreen from "./topScreen/TopScreen";
 import { requestList } from "./api/requestList";
 import { requestPokemonInfo } from "./api/requestPokemonInfo";
 
+const MAX_POKEMON = 151;
+
 const App = () => {
   const [pokemon, setPokemon] = React.useState();
   const [currentPokemon, setCurrentPokemon] = React.useState(0);
   const [currentPokemonData, setCurrentPokemonData] = React.useState();
 
   React.useEffect(() => {
-    requestList({ from: 0, to: 151 })
+    document.addEventListener("keydown", (evt) => {
+      if (evt.key === "ArrowDown")
+        setCurrentPokemon((currentPokemon) =>
+          currentPokemon < MAX_POKEMON - 1 ? currentPokemon + 1 : currentPokemon
+        );
+      else if (evt.key === "ArrowUp")
+        setCurrentPokemon((currentPokemon) =>
+          currentPokemon > 0 ? currentPokemon - 1 : currentPokemon
+        );
+    });
+
+    requestList({ from: 0, to: MAX_POKEMON })
       .then((response) => response.json())
       .then(({ results }) => setPokemon(results));
   }, []);
