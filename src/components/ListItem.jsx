@@ -2,7 +2,7 @@ import { Box, Flex } from "@chakra-ui/react";
 import React from "react";
 import Pokeball from "./Pokeball";
 
-const ListItem = ({ name, number, style }) => {
+const ListItem = ({ name, number, onClick, style }) => {
   return (
     <Flex
       bgColor="yellow.100"
@@ -13,6 +13,7 @@ const ListItem = ({ name, number, style }) => {
       paddingRight={10}
       paddingLeft={10}
       position="relative"
+      onClick={onClick}
       {...style}
     >
       <Flex

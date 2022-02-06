@@ -22,7 +22,13 @@ const PokemonList = () => {
     for (let i = currentPokemon - 3; i <= currentPokemon + 3; i++) {
       const name = pokemon[i] ? capitalize(pokemon[i].name) : null;
       const width = 100 - Math.abs(i - currentPokemon) * 5;
-      list.push({ name, number: i + 1, width: `${width}%`, heigth: "30px" });
+      list.push({
+        name,
+        number: i + 1,
+        width: `${width}%`,
+        heigth: "30px",
+        selected: i === currentPokemon,
+      });
     }
 
     return list;
@@ -39,12 +45,35 @@ const PokemonList = () => {
     >
       {pokemonList.map((item) =>
         item.name ? (
-          <ListItem
-            key={item.name}
-            name={item.name}
-            number={item.number}
-            style={{ width: item.width, height: item.heigth }}
-          />
+          <Flex position="relative" width="100%" justifyContent="flex-end" key={item.name}>
+            {item.selected ? (
+              <Flex
+                w="110%"
+                h="40px"
+                bgColor="red.500"
+                position="absolute"
+                borderRadius="5px"
+                transform="translate(5px, -5px)"
+                justifyContent="flex-start"
+                alignItems="center"
+                paddingLeft="5px"
+              >
+                <Box
+                  h="0px"
+                  w="0px"
+                  borderTop="10px solid transparent"
+                  borderBottom="10px solid transparent"
+                  borderLeft="15px solid white"
+                />
+              </Flex>
+            ) : null}
+            <ListItem
+              name={item.name}
+              number={item.number}
+              onClick={() => setCurrentPokemon(item.number - 1)}
+              style={{ width: item.width, height: item.heigth, cursor: "pointer" }}
+            />
+          </Flex>
         ) : (
           <Box style={{ height: item.heigth }} key={item.number}></Box>
         )
