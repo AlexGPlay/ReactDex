@@ -1,6 +1,7 @@
 import { Box, Flex } from "@chakra-ui/react";
 import CommonScreen from "../components/Screen";
 import * as React from "react";
+import Info from "./Info";
 
 const Screen = () => (
   <Flex w="100%" h="100%" justifyContent="center" alignItems="center">
@@ -15,7 +16,9 @@ const Screen = () => (
       borderRightColor="gray.900"
       borderWidth={2}
     />
-    <CommonScreen />
+    <CommonScreen>
+      <Info />
+    </CommonScreen>
     <Flex
       w="60px"
       h="90%"
