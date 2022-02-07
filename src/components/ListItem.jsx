@@ -14,6 +14,7 @@ const ListItem = ({ name, number, onClick, style }) => {
       paddingLeft={10}
       position="relative"
       onClick={onClick}
+      transition="width 1s ease"
       {...style}
     >
       <Flex

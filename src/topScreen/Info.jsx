@@ -4,7 +4,7 @@ import PokemonList from "../components/PokemonList";
 
 const Info = ({ pokemon, currentPokemon, setCurrentPokemon, currentPokemonData }) => {
   return (
-    <Grid p={5} h="100%" w="100%" gridTemplateColumns="30% 70%">
+    <Grid p={3} h="100%" w="100%" gridTemplateColumns="30% 70%">
       <Flex w="100%" h="100%" justifyContent="center" alignItems="center">
         <Box
           h="150px"
@@ -16,7 +16,7 @@ const Info = ({ pokemon, currentPokemon, setCurrentPokemon, currentPokemonData }
           <Image src={currentPokemonData?.sprites?.other["official-artwork"]["front_default"]} />
         </Box>
       </Flex>
-      <Flex w="100%" h="100%" justify="flex-end">
+      <Flex w="100%" h="100%" justify="flex-end" overflow="hidden">
         <PokemonList
           currentPokemon={currentPokemon}
           setCurrentPokemon={setCurrentPokemon}
