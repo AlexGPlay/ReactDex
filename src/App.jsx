@@ -13,16 +13,22 @@ const App = () => {
   const [currentPokemon, setCurrentPokemon] = React.useState(0);
   const [currentPokemonData, setCurrentPokemonData] = React.useState();
 
+  const nextPokemon = (quantity = 1) =>
+    setCurrentPokemon((currentPokemon) => Math.min(currentPokemon + quantity, MAX_POKEMON - 1));
+
+  const prevPokemon = (quantity = 1) =>
+    setCurrentPokemon((currentPokemon) => Math.max(currentPokemon - quantity, 0));
+
   React.useEffect(() => {
     document.addEventListener("keydown", (evt) => {
-      if (evt.key === "ArrowDown")
-        setCurrentPokemon((currentPokemon) =>
-          currentPokemon < MAX_POKEMON - 1 ? currentPokemon + 1 : currentPokemon
-        );
-      else if (evt.key === "ArrowUp")
-        setCurrentPokemon((currentPokemon) =>
-          currentPokemon > 0 ? currentPokemon - 1 : currentPokemon
-        );
+      if (evt.key === "ArrowDown") nextPokemon();
+      else if (evt.key === "ArrowUp") prevPokemon();
+    });
+
+    document.addEventListener("wheel", (evt) => {
+      const delta = Math.sign(evt.deltaY);
+      if (delta === -1) prevPokemon();
+      else if (delta === 1) nextPokemon();
     });
 
     requestList({ from: 0, to: MAX_POKEMON })
