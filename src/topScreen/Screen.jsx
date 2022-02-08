@@ -3,7 +3,7 @@ import CommonScreen from "../components/Screen";
 import * as React from "react";
 import Info from "./Info";
 
-const Screen = ({ pokemon, currentPokemon, setCurrentPokemon, currentPokemonData }) => (
+const Screen = ({ pokemon, currentPokemon, setCurrentPokemon }) => (
   <Flex w="100%" h="100%" justifyContent="center" alignItems="center">
     <Box
       w={50}
@@ -21,7 +21,6 @@ const Screen = ({ pokemon, currentPokemon, setCurrentPokemon, currentPokemonData
         currentPokemon={currentPokemon}
         setCurrentPokemon={setCurrentPokemon}
         pokemon={pokemon}
-        currentPokemonData={currentPokemonData}
       />
     </CommonScreen>
     <Flex

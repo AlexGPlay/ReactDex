@@ -2,7 +2,7 @@ import { Box, Flex, Grid, Image } from "@chakra-ui/react";
 import React from "react";
 import PokemonList from "../components/PokemonList";
 
-const Info = ({ pokemon, currentPokemon, setCurrentPokemon, currentPokemonData }) => {
+const Info = ({ pokemon, currentPokemon, setCurrentPokemon }) => {
   return (
     <Grid p={3} h="100%" w="100%" gridTemplateColumns="30% 70%">
       <Flex w="100%" h="100%" justifyContent="center" alignItems="center">
@@ -13,7 +13,11 @@ const Info = ({ pokemon, currentPokemon, setCurrentPokemon, currentPokemonData }
           borderRadius={4}
           boxShadow="0 0 0 1px black, 0 0 0 10px var(--chakra-colors-gray-400), 0 0 0 11px black"
         >
-          <Image src={currentPokemonData?.sprites?.other["official-artwork"]["front_default"]} />
+          <Image
+            src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${
+              currentPokemon + 1
+            }.png`}
+          />
         </Box>
       </Flex>
       <Flex w="100%" h="100%" justify="flex-end" overflow="hidden">
