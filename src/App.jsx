@@ -23,6 +23,8 @@ const App = () => {
     document.addEventListener("keydown", (evt) => {
       if (evt.key === "ArrowDown") nextPokemon();
       else if (evt.key === "ArrowUp") prevPokemon();
+      else if (evt.key === "ArrowLeft") prevPokemon(5);
+      else if (evt.key === "ArrowRight") nextPokemon(5);
     });
 
     document.addEventListener("wheel", (evt) => {
@@ -50,7 +52,6 @@ const App = () => {
             pokemon={pokemon}
             currentPokemon={currentPokemon}
             setCurrentPokemon={setCurrentPokemon}
-            currentPokemonData={currentPokemonData}
           />
           <Center />
           <BottomScreen />

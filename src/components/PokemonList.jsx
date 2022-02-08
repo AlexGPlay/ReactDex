@@ -50,6 +50,7 @@ const PokemonList = ({ pokemon, currentPokemon, setCurrentPokemon }) => {
             top={item.top}
             transition="top 1s ease"
             width="100%"
+            right="5px"
             justifyContent="flex-end"
             key={item.name}
           >
