@@ -3,8 +3,9 @@ import React from "react";
 import Arrows from "./Arrows";
 import Control from "./Control";
 import Screen from "../components/Screen";
+import Description from "./Description";
 
-const BottomScreen = () => {
+const BottomScreen = ({ currentPokemon }) => {
   return (
     <Box
       bgColor="red.400"
@@ -23,7 +24,9 @@ const BottomScreen = () => {
       <Arrows />
       <Box w="90%" h="80%" display="flex" justifyContent="center" alignItems="center">
         <Box w="100%" h="100%" pl="50px">
-          <Screen></Screen>
+          <Screen>
+            <Description currentPokemon={currentPokemon} />
+          </Screen>
         </Box>
         <Box
           w="60px"
