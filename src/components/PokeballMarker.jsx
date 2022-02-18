@@ -1,7 +1,9 @@
 import { Box } from "@chakra-ui/react";
 import React from "react";
 
-const PokeballMarker = () => {
+const PokeballMarker = ({ currentPokemon, maxRotations = 16 }) => {
+  const rotationDegs = (360 / maxRotations) * currentPokemon;
+
   return (
     <Box
       w="400px"
@@ -12,7 +14,7 @@ const PokeballMarker = () => {
       borderStyle="solid"
       borderColor="black"
       borderWidth={5}
-      transform="translate(-50%, -15%)"
+      transform={`translate(-50%, -15%) rotate(${rotationDegs}deg)`}
     >
       <Box
         h="200px"

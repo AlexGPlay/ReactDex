@@ -15,7 +15,7 @@ const Info = ({ pokemon, currentPokemon, setCurrentPokemon }) => {
         w="calc(100% - 15px)"
         overflow="hidden"
       >
-        <PokeballMarker />
+        <PokeballMarker currentPokemon={currentPokemon} />
       </Flex>
       <Box />
       <Flex w="100%" h="100%" justify="flex-end" overflow="hidden">
