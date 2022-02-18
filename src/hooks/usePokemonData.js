@@ -2,13 +2,10 @@ import { useEffect, useRef, useState } from "react";
 import { requestPokemonInfo, requestSpeciesInfo } from "../api/requestPokemonInfo";
 
 export const usePokemonData = ({ id }) => {
-  const [pokemonData, setPokemonData] = useState({});
-
-  const pokemonDataCache = useRef({});
+  const [pokemonDataCache, setPokemonDataCache] = useState({});
 
   useEffect(async () => {
-    if (pokemonDataCache.current[id]) {
-      setPokemonData(pokemonDataCache.current[id]);
+    if (pokemonDataCache[id]) {
       return;
     }
 
@@ -19,30 +16,27 @@ export const usePokemonData = ({ id }) => {
       pokemonResponse.json(),
     ]);
 
-    pokemonDataCache.current[id] = {
-      species: speciesJson,
-      pokemon: pokemonJson,
-    };
-
-    console.log("pokemonDataCache", pokemonDataCache.current[id]);
-
-    setPokemonData(pokemonDataCache.current[id]);
+    setPokemonDataCache((cache) => ({
+      ...cache,
+      [id]: { species: speciesJson, pokemon: pokemonJson },
+    }));
   }, [id]);
 
   return {
-    rawData: pokemonData,
-    data: extractPokemonData(pokemonData),
+    rawData: pokemonDataCache[id],
+    data: extractPokemonData(pokemonDataCache[id]),
   };
 };
 
-const extractPokemonData = ({ species, pokemon }) => {
+const extractPokemonData = (data) => {
   return {
-    name: pokemon?.name,
-    genera: species?.genera.find((genera) => genera.language.name === "en")?.genus,
-    description: species?.flavor_text_entries?.findLast((flavor) => flavor.language.name === "en")
-      ?.flavor_text,
-    types: pokemon?.types?.map(({ type }) => type.name) || [],
-    height: (pokemon?.height * 0.1).toFixed(2), // The height is given in decimeters
-    weight: (pokemon?.weight * 0.1).toFixed(2), // The weight is given in hectograms
+    name: data?.pokemon?.name,
+    genera: data?.species?.genera.find((genera) => genera.language.name === "en")?.genus,
+    description: data?.species?.flavor_text_entries?.findLast(
+      (flavor) => flavor.language.name === "en"
+    )?.flavor_text,
+    types: data?.pokemon?.types?.map(({ type }) => type.name) || [],
+    height: (data?.pokemon?.height * 0.1).toFixed(2), // The height is given in decimeters
+    weight: (data?.pokemon?.weight * 0.1).toFixed(2), // The weight is given in hectograms
   };
 };

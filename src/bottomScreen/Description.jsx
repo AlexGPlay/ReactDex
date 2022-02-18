@@ -1,4 +1,4 @@
-import { Box, Flex, Grid, GridItem } from "@chakra-ui/react";
+import { Box, Flex, Grid, GridItem, Image } from "@chakra-ui/react";
 import React from "react";
 import TypeBadge from "../components/TypeBadge";
 import { usePokemonData } from "../hooks/usePokemonData";
@@ -16,7 +16,23 @@ const Description = ({ currentPokemon }) => {
       templateColumns="repeat(12, 1fr)"
       gap={2}
     >
-      <GridItem rowSpan={8} colSpan={5} bg="tomato"></GridItem>
+      <GridItem rowSpan={8} colSpan={5}>
+        <Flex w="100%" h="100%" justifyContent="center" alignItems="center">
+          <Box
+            h="150px"
+            w="150px"
+            bgColor="white"
+            borderRadius={4}
+            boxShadow="0 0 0 1px black, 0 0 0 10px var(--chakra-colors-gray-400), 0 0 0 11px black"
+          >
+            <Image
+              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${
+                currentPokemon + 1
+              }.png`}
+            />
+          </Box>
+        </Flex>
+      </GridItem>
       <GridItem
         display="flex"
         flexDir="column"
@@ -41,7 +57,7 @@ const Description = ({ currentPokemon }) => {
       </GridItem>
       <GridItem rowSpan={2} colSpan={7} display="flex" alignItems="center" gap={2}>
         {data.types.map((type) => (
-          <TypeBadge type={type} />
+          <TypeBadge key={type} type={type} />
         ))}
       </GridItem>
       <GridItem rowSpan={3} colSpan={7} bg="gray.200" borderRadius={5} p={1}>
