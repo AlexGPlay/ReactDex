@@ -22,7 +22,7 @@ const PokeballMarker = () => {
         borderBottomWidth={5}
         borderBottomColor="black"
         borderBottomStyle="solid"
-        bgColor="red"
+        bgColor="red.500"
         top={0}
         left="50%"
         transform="translateX(-50%)"
