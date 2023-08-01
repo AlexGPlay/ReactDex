@@ -10,6 +10,7 @@ module.exports = {
     const ctx = await esbuild.context(opts);
     const { host, port } = await ctx.serve({
       servedir: "./",
+      fallback: "index.html",
     });
     console.log(`Serving on development server, open http://${host}:${port}`);
   },
