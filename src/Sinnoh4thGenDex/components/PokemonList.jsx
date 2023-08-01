@@ -1,6 +1,6 @@
 import { Box, Flex } from "@chakra-ui/react";
 import React from "react";
-import { capitalize } from "../util/capitalize";
+import { capitalize } from "../../util/capitalize";
 import ListItem from "./ListItem";
 
 const CENTER_PX = 129;
@@ -16,7 +16,10 @@ const PokemonList = ({ pokemon, currentPokemon, setCurrentPokemon }) => {
     for (let i = currentPokemon - 25; i <= currentPokemon + 25; i++) {
       const name = pokemon[i] ? capitalize(pokemon[i].name) : null;
       const distance = i - currentPokemon;
-      const top = CENTER_PX + distance * (ELEMENT_HEIGHT + ELEMENT_GAP) - ELEMENT_HEIGHT / 2;
+      const top =
+        CENTER_PX +
+        distance * (ELEMENT_HEIGHT + ELEMENT_GAP) -
+        ELEMENT_HEIGHT / 2;
 
       const width = 100 - Math.abs(distance) * 5;
 
@@ -79,7 +82,11 @@ const PokemonList = ({ pokemon, currentPokemon, setCurrentPokemon }) => {
               name={item.name}
               number={item.number}
               onClick={() => setCurrentPokemon(item.number - 1)}
-              style={{ width: item.width, height: item.heigth, cursor: "pointer" }}
+              style={{
+                width: item.width,
+                height: item.heigth,
+                cursor: "pointer",
+              }}
             />
           </Flex>
         ) : null

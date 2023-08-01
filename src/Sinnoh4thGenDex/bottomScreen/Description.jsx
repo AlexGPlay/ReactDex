@@ -1,8 +1,8 @@
 import { Box, Flex, Grid, GridItem, Image } from "@chakra-ui/react";
 import React from "react";
 import TypeBadge from "../components/TypeBadge";
-import { usePokemonData } from "../hooks/usePokemonData";
-import { capitalize } from "../util/capitalize";
+import { usePokemonData } from "../../hooks/usePokemonData";
+import { capitalize } from "../../util/capitalize";
 
 const Description = ({ currentPokemon }) => {
   const { data } = usePokemonData({ id: currentPokemon + 1 });
@@ -41,7 +41,13 @@ const Description = ({ currentPokemon }) => {
         bg="gray.200"
         borderRadius={5}
       >
-        <Box w="100%" bgColor="red.500" borderTopRadius={5} padding="2px" paddingLeft={5}>
+        <Box
+          w="100%"
+          bgColor="red.500"
+          borderTopRadius={5}
+          padding="2px"
+          paddingLeft={5}
+        >
           N.º {currentPokemon + 1} {capitalize(data.name || "")}
         </Box>
         <Flex
@@ -55,7 +61,13 @@ const Description = ({ currentPokemon }) => {
           {data.genera}
         </Flex>
       </GridItem>
-      <GridItem rowSpan={2} colSpan={7} display="flex" alignItems="center" gap={2}>
+      <GridItem
+        rowSpan={2}
+        colSpan={7}
+        display="flex"
+        alignItems="center"
+        gap={2}
+      >
         {data.types.map((type) => (
           <TypeBadge key={type} type={type} />
         ))}
@@ -65,7 +77,13 @@ const Description = ({ currentPokemon }) => {
           <Box>Height</Box>
           <Box marginLeft="auto">{`${data.height} m`}</Box>
         </Flex>
-        <Flex pr={5} pl={5} borderTopStyle="dotted" borderTopWidth="1px" borderTopColor="gray.800">
+        <Flex
+          pr={5}
+          pl={5}
+          borderTopStyle="dotted"
+          borderTopWidth="1px"
+          borderTopColor="gray.800"
+        >
           <Box>Weight</Box>
           <Box marginLeft="auto">{`${data.weight} kg`}</Box>
         </Flex>
@@ -90,9 +108,23 @@ const Description = ({ currentPokemon }) => {
           w="10px"
           bgColor="red.500"
         />
-        <Box position="absolute" left="10px" top={0} h="100%" w="5px" bgColor="red.300" />
+        <Box
+          position="absolute"
+          left="10px"
+          top={0}
+          h="100%"
+          w="5px"
+          bgColor="red.300"
+        />
         {data.description}
-        <Box position="absolute" right="10px" top={0} h="100%" w="5px" bgColor="red.300" />
+        <Box
+          position="absolute"
+          right="10px"
+          top={0}
+          h="100%"
+          w="5px"
+          bgColor="red.300"
+        />
         <Box
           position="absolute"
           right={0}
