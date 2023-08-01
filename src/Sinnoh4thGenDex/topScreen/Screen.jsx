@@ -8,7 +8,6 @@ const Screen = ({ pokemon, currentPokemon, setCurrentPokemon }) => (
     <Box
       w={50}
       h="90%"
-      bgColor="black"
       borderTopLeftRadius={4}
       borderBottomLeftRadius={4}
       bgColor="gray.900"

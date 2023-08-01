@@ -6,8 +6,11 @@ module.exports = {
     esbuild.build(opts);
     console.timeEnd("Build");
   },
-  serve: (opts) => {
-    console.log("Serving on development server, open http://localhost:9000");
-    esbuild.serve({ servedir: "./", port: 9000 }, opts);
+  serve: async (opts) => {
+    const ctx = await esbuild.context(opts);
+    const { host, port } = await ctx.serve({
+      servedir: "./",
+    });
+    console.log(`Serving on development server, open http://${host}:${port}`);
   },
 };
