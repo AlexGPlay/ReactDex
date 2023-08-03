@@ -49,12 +49,35 @@ const Kanto1stGenDex = () => {
           bgColor="red"
           outline="1px solid black"
         >
-          <Box h="12%" w="100%" backgroundColor="orange"></Box>
+          <Box h="12%" w="100%" backgroundColor="red" position="relative">
+            <Box
+              position="absolute"
+              w="43.5%"
+              h="65%"
+              top="100%"
+              left="-1px"
+              background="red"
+              overflowY="clip"
+              borderBottom="1px solid black"
+              borderLeft="1px solid black"
+              _after={{
+                content: "''",
+                position: "absolute",
+                width: "100%",
+                height: "100%",
+                left: "45%",
+                background: "red",
+                borderTop: "1px solid black",
+                transform: "rotate(135deg)",
+              }}
+            />
+          </Box>
           <Flex h="88%" w="100%" background="black">
             <Box flex={1} h="100%" w="auto" />
             <Flex
               flexDir="column"
               outline="1px solid black"
+              borderTop="1px solid black"
               h="100%"
               w="50px"
               background="red"
@@ -104,7 +127,7 @@ const Kanto1stGenDex = () => {
               borderTop: "1px solid black",
               transform: "rotate(45deg)",
             }}
-          ></Box>
+          />
         </motion.div>
       </motion.div>
     </Flex>
