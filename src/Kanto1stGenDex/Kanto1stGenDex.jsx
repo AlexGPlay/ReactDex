@@ -20,8 +20,8 @@ const Kanto1stGenDex = () => {
   useEffect(() => () => resizeObserver.disconnect(), [resizeObserver]);
 
   const coverVariants = {
-    open: { rotateY: 0, transition: { duration: 0.75 } },
-    closed: { rotateY: 180, transition: { duration: 0.75 } },
+    open: { x: 0, rotateY: 0, transition: { duration: 0.75 } },
+    closed: { x: -50, rotateY: 180, transition: { duration: 0.75 } },
   };
 
   const positionVariants = {
@@ -42,7 +42,31 @@ const Kanto1stGenDex = () => {
         animate={isOpen ? "open" : "closed"}
         variants={positionVariants}
       >
-        <Box h="100%" w="450px" bgColor="black"></Box>
+        <Flex
+          flexDir="column"
+          h="100%"
+          w="450px"
+          bgColor="red"
+          outline="1px solid black"
+        >
+          <Box h="12%" w="100%" backgroundColor="orange"></Box>
+          <Flex h="88%" w="100%" background="black">
+            <Box flex={1} h="100%" w="auto" />
+            <Flex
+              flexDir="column"
+              outline="1px solid black"
+              h="100%"
+              w="50px"
+              background="red"
+            >
+              <Box h="10%" />
+              <Box h="2%" outline="1px solid black" />
+              <Box flex={1} />
+              <Box h="2%" outline="1px solid black" />
+              <Box h="10%" />
+            </Flex>
+          </Flex>
+        </Flex>
         <motion.div
           onClick={() => {
             setIsOpen((open) => !open);
@@ -52,7 +76,7 @@ const Kanto1stGenDex = () => {
           style={{
             outline: "1px solid black",
             height: "80%",
-            width: 450,
+            width: 400,
             backgroundColor: "red",
             marginTop: "auto",
             transformOrigin: "left",
@@ -63,12 +87,13 @@ const Kanto1stGenDex = () => {
           <Box
             position="absolute"
             w="40%"
-            h="10%"
+            h="calc(10% + 1px)"
             bottom="100%"
-            left="0"
+            left="-1px"
             background="red"
             overflowY="clip"
             borderTop="1px solid black"
+            borderLeft="1px solid black"
             _after={{
               content: "''",
               position: "absolute",
