@@ -1,23 +1,31 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Box, Flex } from "@chakra-ui/react";
+import { useResizeObserver } from "../hooks/useResizeObserver";
+import CircleLight from "./components/CircleLight";
+import SmallCircleLight from "./components/SmallCircleLight";
 
 const Kanto1stGenDex = () => {
   const bgColor = "white";
   const [isOpen, setIsOpen] = useState(false);
-  const [parentWidth, setParentWidth] = useState(0);
 
-  const resizeObserver = useMemo(
-    () =>
-      new ResizeObserver((entries) => {
-        const entry = entries[0];
-        const newWidth = entry.contentRect.width;
-        setParentWidth(newWidth);
-      }),
-    []
-  );
+  const {
+    dimensions: { width: parentWidth },
+    setRef: setParentRef,
+  } = useResizeObserver({ debug: true });
 
-  useEffect(() => () => resizeObserver.disconnect(), [resizeObserver]);
+  const {
+    dimensions: { height: headerHeight },
+    setRef: setHeaderHeight,
+  } = useResizeObserver();
+
+  const {
+    dimensions: { height: subheaderHeight },
+    setRef: setSubheaderHeight,
+  } = useResizeObserver();
+
+  const topMargins = (headerHeight + subheaderHeight) * 0.1;
+  const topCircleDimensions = headerHeight + subheaderHeight - topMargins * 2;
 
   const coverVariants = {
     open: { x: 0, rotateY: 0, transition: { duration: 0.75 } },
@@ -25,8 +33,8 @@ const Kanto1stGenDex = () => {
   };
 
   const positionVariants = {
-    open: { x: parentWidth / 2 - 450, transition: { duration: 0.75 } },
-    closed: { x: parentWidth / 2 - 225, transition: { duration: 0.75 } },
+    open: { x: parentWidth / 2 - 350, transition: { duration: 0.75 } },
+    closed: { x: parentWidth / 2 - 175, transition: { duration: 0.75 } },
   };
 
   return (
@@ -35,7 +43,7 @@ const Kanto1stGenDex = () => {
       alignItems="center"
       h="100vh"
       w="100%"
-      ref={(ref) => ref && resizeObserver.observe(ref)}
+      ref={setParentRef}
     >
       <motion.div
         style={{ display: "flex", height: "75%" }}
@@ -49,10 +57,40 @@ const Kanto1stGenDex = () => {
           bgColor="red"
           outline="1px solid black"
         >
-          <Box h="12%" w="100%" backgroundColor="red" position="relative">
+          <Box
+            h="12%"
+            w="100%"
+            backgroundColor="red"
+            position="relative"
+            ref={setHeaderHeight}
+            paddingTop={`${topMargins}px`}
+            paddingLeft={`${topMargins}px`}
+          >
+            <Flex gap={7}>
+              <CircleLight size={topCircleDimensions} isOn={isOpen} />
+              <SmallCircleLight
+                size={topCircleDimensions / 5}
+                isOn={isOpen}
+                onColor="var(--chakra-colors-red-500)"
+                offColor="var(--chakra-colors-red-900)"
+              />
+              <SmallCircleLight
+                size={topCircleDimensions / 5}
+                isOn={isOpen}
+                onColor="var(--chakra-colors-yellow-500)"
+                offColor="var(--chakra-colors-yellow-900)"
+              />
+              <SmallCircleLight
+                size={topCircleDimensions / 5}
+                isOn={isOpen}
+                onColor="var(--chakra-colors-green-500)"
+                offColor="var(--chakra-colors-green-900)"
+              />
+            </Flex>
             <Box
+              ref={setSubheaderHeight}
               position="absolute"
-              w="43.5%"
+              w="45%"
               h="65%"
               top="100%"
               left="-1px"
