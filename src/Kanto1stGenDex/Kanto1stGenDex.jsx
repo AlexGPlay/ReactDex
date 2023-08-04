@@ -1,9 +1,12 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { Box, Flex, useToken } from "@chakra-ui/react";
 import { useResizeObserver } from "../hooks/useResizeObserver";
 import CircleLight from "./components/CircleLight";
 import SmallCircleLight from "./components/SmallCircleLight";
+
+const CLOSE_OPEN_ANIMATION_DURATION = 0.75;
+const COVER_VISUAL_CHANGE = CLOSE_OPEN_ANIMATION_DURATION / 2;
 
 const Kanto1stGenDex = () => {
   const bgColor = "white";
@@ -32,13 +35,27 @@ const Kanto1stGenDex = () => {
   const topCircleDimensions = headerHeight + subheaderHeight - topMargins * 2;
 
   const coverVariants = {
-    open: { x: 0, rotateY: 0, transition: { duration: 0.75 } },
-    closed: { x: -50, rotateY: 180, transition: { duration: 0.75 } },
+    open: {
+      x: 0,
+      rotateY: 0,
+      transition: { duration: CLOSE_OPEN_ANIMATION_DURATION },
+    },
+    closed: {
+      x: -50,
+      rotateY: 180,
+      transition: { duration: CLOSE_OPEN_ANIMATION_DURATION },
+    },
   };
 
   const positionVariants = {
-    open: { x: parentWidth / 2 - 350, transition: { duration: 0.75 } },
-    closed: { x: parentWidth / 2 - 175, transition: { duration: 0.75 } },
+    open: {
+      x: parentWidth / 2 - 350,
+      transition: { duration: CLOSE_OPEN_ANIMATION_DURATION },
+    },
+    closed: {
+      x: parentWidth / 2 - 175,
+      transition: { duration: CLOSE_OPEN_ANIMATION_DURATION },
+    },
   };
 
   return (
@@ -149,6 +166,23 @@ const Kanto1stGenDex = () => {
             position: "relative",
           }}
         >
+          {!isOpen && (
+            <Flex
+              w="100%"
+              h="100%"
+              alignItems="center"
+              justifyContent="flex-end"
+            >
+              <Box
+                width="0px"
+                height="0px"
+                borderTop="15px solid transparent"
+                borderBottom="15px solid transparent"
+                borderRight="20px solid yellow"
+                marginRight={topMargins}
+              ></Box>
+            </Flex>
+          )}
           <Box
             position="absolute"
             w="40%"
