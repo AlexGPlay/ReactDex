@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Box, Flex } from "@chakra-ui/react";
+import { Box, Flex, useToken } from "@chakra-ui/react";
 import { useResizeObserver } from "../hooks/useResizeObserver";
 import CircleLight from "./components/CircleLight";
 import SmallCircleLight from "./components/SmallCircleLight";
@@ -8,6 +8,10 @@ import SmallCircleLight from "./components/SmallCircleLight";
 const Kanto1stGenDex = () => {
   const bgColor = "white";
   const [isOpen, setIsOpen] = useState(false);
+  const [red500, red900, yellow500, yellow900, green500, green900] = useToken(
+    "colors",
+    ["red.500", "red.900", "yellow.500", "yellow.900", "green.500", "green.900"]
+  );
 
   const {
     dimensions: { width: parentWidth },
@@ -71,20 +75,20 @@ const Kanto1stGenDex = () => {
               <SmallCircleLight
                 size={topCircleDimensions / 5}
                 isOn={isOpen}
-                onColor="var(--chakra-colors-red-500)"
-                offColor="var(--chakra-colors-red-900)"
+                onColor={red500}
+                offColor={red900}
               />
               <SmallCircleLight
                 size={topCircleDimensions / 5}
                 isOn={isOpen}
-                onColor="var(--chakra-colors-yellow-500)"
-                offColor="var(--chakra-colors-yellow-900)"
+                onColor={yellow500}
+                offColor={yellow900}
               />
               <SmallCircleLight
                 size={topCircleDimensions / 5}
                 isOn={isOpen}
-                onColor="var(--chakra-colors-green-500)"
-                offColor="var(--chakra-colors-green-900)"
+                onColor={green500}
+                offColor={green900}
               />
             </Flex>
             <Box

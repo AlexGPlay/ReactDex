@@ -1,15 +1,17 @@
 import React from "react";
-import { Flex } from "@chakra-ui/react";
+import { Flex, useToken } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 
 const CircleLight = ({ size, isOn }) => {
+  const [blue600, gray700] = useToken("colors", ["blue.600", "gray.700"]);
+
   const lightVariants = {
     isOn: {
-      backgroundColor: "var(--chakra-colors-blue-600)",
+      backgroundColor: blue600,
       transition: { duration: 1.25 },
     },
     isOff: {
-      backgroundColor: "var(--chakra-colors-gray-700)",
+      backgroundColor: gray700,
       transition: { duration: 1.25 },
     },
   };
