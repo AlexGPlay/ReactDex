@@ -4,6 +4,7 @@ import { Box, Flex, useToken } from "@chakra-ui/react";
 import { useResizeObserver } from "../hooks/useResizeObserver";
 import CircleLight from "./components/CircleLight";
 import SmallCircleLight from "./components/SmallCircleLight";
+import CoverInterior from "./components/CoverInterior";
 
 const CLOSE_OPEN_ANIMATION_DURATION = 0.75;
 const COVER_VISUAL_CHANGE = CLOSE_OPEN_ANIMATION_DURATION / 2;
@@ -31,7 +32,7 @@ const Kanto1stGenDex = () => {
     setRef: setSubheaderHeight,
   } = useResizeObserver();
 
-  const topMargins = (headerHeight + subheaderHeight) * 0.1;
+  const topMargins = (headerHeight + subheaderHeight) * 0.15;
   const topCircleDimensions = headerHeight + subheaderHeight - topMargins * 2;
 
   const coverVariants = {
@@ -164,9 +165,12 @@ const Kanto1stGenDex = () => {
             transformOrigin: "left",
             cursor: "pointer",
             position: "relative",
+            padding: topMargins,
           }}
         >
-          {!isOpen && (
+          {isOpen ? (
+            <CoverInterior />
+          ) : (
             <Flex
               w="100%"
               h="100%"
@@ -179,8 +183,7 @@ const Kanto1stGenDex = () => {
                 borderTop="15px solid transparent"
                 borderBottom="15px solid transparent"
                 borderRight="20px solid yellow"
-                marginRight={topMargins}
-              ></Box>
+              />
             </Flex>
           )}
           <Box

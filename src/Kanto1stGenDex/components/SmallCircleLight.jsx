@@ -1,30 +1,9 @@
 import React from "react";
-import { motion } from "framer-motion";
+import CustomLight from "./CustomLight";
 
-const SmallCircleLight = ({ size, offColor, onColor, isOn }) => {
-  const lightVariants = {
-    isOn: {
-      backgroundColor: onColor,
-      transition: { duration: 1.25 },
-    },
-    isOff: {
-      backgroundColor: offColor,
-      transition: { duration: 1.25 },
-    },
-  };
-
+const SmallCircleLight = ({ size, ...props }) => {
   return (
-    <motion.div
-      variants={lightVariants}
-      animate={isOn ? "isOn" : "isOff"}
-      style={{
-        width: size,
-        height: size,
-        zIndex: 1,
-        border: "1px solid black",
-        borderRadius: "50%",
-      }}
-    />
+    <CustomLight width={size} height={size} borderRadius="50%" {...props} />
   );
 };
 
