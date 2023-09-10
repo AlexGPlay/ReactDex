@@ -5,6 +5,7 @@ import { useResizeObserver } from "../hooks/useResizeObserver";
 import CircleLight from "./components/CircleLight";
 import SmallCircleLight from "./components/SmallCircleLight";
 import CoverInterior from "./components/CoverInterior";
+import LeftSide from "./components/LeftSide";
 
 const CLOSE_OPEN_ANIMATION_DURATION = 0.75;
 const COVER_VISUAL_CHANGE = CLOSE_OPEN_ANIMATION_DURATION / 2;
@@ -154,7 +155,9 @@ const Kanto1stGenDex = () => {
             />
           </Box>
           <Flex h="88%" w="100%" background="red">
-            <Box flex={1} h="100%" w="auto" borderTop="1px solid black" />
+            <Box flex={1} h="100%" w="100%" borderTop="1px solid black">
+              <LeftSide marginTop={subheaderHeight} padding={topMargins} />
+            </Box>
             <Flex
               flexDir="column"
               outline="1px solid black"
@@ -178,6 +181,7 @@ const Kanto1stGenDex = () => {
           animate={isOpen ? "open" : "closed"}
           variants={coverVariants}
           style={{
+            zIndex: 2,
             outline: "1px solid black",
             height: "80%",
             width: RIGHT_PART_WIDTH,
