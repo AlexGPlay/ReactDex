@@ -89,7 +89,7 @@ const Kanto1stGenDex = () => {
       ref={setParentRef}
     >
       <motion.div
-        style={{ display: "flex", height: "75%" }}
+        style={{ display: "flex", height: 800 }}
         animate={isOpen ? "open" : "closed"}
         variants={positionVariants}
       >
@@ -134,7 +134,7 @@ const Kanto1stGenDex = () => {
               ref={setSubheaderHeight}
               position="absolute"
               w="45%"
-              h="65%"
+              h="67%"
               top="100%"
               left="-1px"
               background="red"
@@ -146,15 +146,15 @@ const Kanto1stGenDex = () => {
                 position: "absolute",
                 width: "100%",
                 height: "100%",
-                left: "45%",
+                left: "44%",
                 background: "red",
                 borderTop: "1px solid black",
                 transform: "rotate(135deg)",
               }}
             />
           </Box>
-          <Flex h="88%" w="100%" background="black">
-            <Box flex={1} h="100%" w="auto" />
+          <Flex h="88%" w="100%" background="red">
+            <Box flex={1} h="100%" w="auto" borderTop="1px solid black" />
             <Flex
               flexDir="column"
               outline="1px solid black"
@@ -228,7 +228,7 @@ const Kanto1stGenDex = () => {
           </AnimatePresence>
           <Box
             position="absolute"
-            w="34%"
+            w="38%"
             h="calc(10% + 1px)"
             bottom="100%"
             left="-1px"
@@ -241,7 +241,7 @@ const Kanto1stGenDex = () => {
               position: "absolute",
               width: "130%",
               height: "100%",
-              left: "25%",
+              left: "27%",
               background: "red",
               borderTop: "1px solid black",
               transform: "rotate(45deg)",
