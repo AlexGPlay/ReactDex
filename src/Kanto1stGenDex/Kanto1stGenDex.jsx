@@ -8,6 +8,9 @@ import CoverInterior from "./components/CoverInterior";
 
 const CLOSE_OPEN_ANIMATION_DURATION = 0.75;
 const COVER_VISUAL_CHANGE = CLOSE_OPEN_ANIMATION_DURATION / 2;
+const LEFT_PART_WIDTH = 500;
+const HINGE_WIDTH = 50;
+const RIGHT_PART_WIDTH = LEFT_PART_WIDTH - HINGE_WIDTH;
 
 const Kanto1stGenDex = () => {
   const bgColor = "white";
@@ -48,6 +51,24 @@ const Kanto1stGenDex = () => {
     },
   };
 
+  const coverTransitionVariants = {
+    initial: {
+      opacity: 0,
+      duration: 0,
+    },
+    animate: {
+      opacity: 1,
+      duration: 0,
+    },
+    exit: {
+      opacity: 0,
+      transition: {
+        delay: COVER_VISUAL_CHANGE,
+        duration: 0,
+      },
+    },
+  };
+
   const positionVariants = {
     open: {
       x: parentWidth / 2 - 350,
@@ -75,7 +96,7 @@ const Kanto1stGenDex = () => {
         <Flex
           flexDir="column"
           h="100%"
-          w="450px"
+          w={LEFT_PART_WIDTH}
           bgColor="red"
           outline="1px solid black"
         >
@@ -139,7 +160,7 @@ const Kanto1stGenDex = () => {
               outline="1px solid black"
               borderTop="1px solid black"
               h="100%"
-              w="50px"
+              w={HINGE_WIDTH}
               background="red"
             >
               <Box h="10%" />
@@ -159,7 +180,7 @@ const Kanto1stGenDex = () => {
           style={{
             outline: "1px solid black",
             height: "80%",
-            width: 400,
+            width: RIGHT_PART_WIDTH,
             backgroundColor: "red",
             marginTop: "auto",
             transformOrigin: "left",
@@ -168,27 +189,46 @@ const Kanto1stGenDex = () => {
             padding: topMargins,
           }}
         >
-          {isOpen ? (
-            <CoverInterior />
-          ) : (
-            <Flex
-              w="100%"
-              h="100%"
-              alignItems="center"
-              justifyContent="flex-end"
-            >
-              <Box
-                width="0px"
-                height="0px"
-                borderTop="15px solid transparent"
-                borderBottom="15px solid transparent"
-                borderRight="20px solid yellow"
-              />
-            </Flex>
-          )}
+          <AnimatePresence exitBeforeEnter>
+            {isOpen ? (
+              <motion.div
+                key={`${isOpen}`}
+                style={{ height: "100%", width: "100%" }}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                variants={coverTransitionVariants}
+              >
+                <CoverInterior />
+              </motion.div>
+            ) : (
+              <motion.div
+                key={`${isOpen}`}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                variants={coverTransitionVariants}
+                style={{
+                  display: "flex",
+                  width: "100%",
+                  height: "100%",
+                  alignItems: "center",
+                  justifyContent: "flex-end",
+                }}
+              >
+                <Box
+                  width="0px"
+                  height="0px"
+                  borderTop="15px solid transparent"
+                  borderBottom="15px solid transparent"
+                  borderRight="20px solid yellow"
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
           <Box
             position="absolute"
-            w="40%"
+            w="34%"
             h="calc(10% + 1px)"
             bottom="100%"
             left="-1px"
@@ -199,9 +239,9 @@ const Kanto1stGenDex = () => {
             _after={{
               content: "''",
               position: "absolute",
-              width: "100%",
+              width: "130%",
               height: "100%",
-              left: "45%",
+              left: "25%",
               background: "red",
               borderTop: "1px solid black",
               transform: "rotate(45deg)",
