@@ -47,7 +47,7 @@ const Sinnoh4thGenDex = () => {
         h="100%"
         justifyContent="center"
         alignItems="center"
-        bgColor="whitesmoke"
+        bgColor="#202124"
       >
         <Box width={800}>
           <TopScreen

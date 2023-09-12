@@ -14,7 +14,7 @@ const HINGE_WIDTH = 50;
 const RIGHT_PART_WIDTH = LEFT_PART_WIDTH - HINGE_WIDTH;
 
 const Kanto1stGenDex = () => {
-  const bgColor = "white";
+  const bgColor = "#202124";
   const [isOpen, setIsOpen] = useState(false);
   const [red500, red900, yellow500, yellow900, green500, green900] = useToken(
     "colors",
@@ -155,9 +155,16 @@ const Kanto1stGenDex = () => {
             />
           </Box>
           <Flex h="88%" w="100%" background="red">
-            <Box flex={1} h="100%" w="100%" borderTop="1px solid black">
+            <Flex
+              flexDir="column"
+              justifyContent="flex-end"
+              flex={1}
+              h="100%"
+              w="100%"
+              borderTop="1px solid black"
+            >
               <LeftSide marginTop={subheaderHeight} padding={topMargins} />
-            </Box>
+            </Flex>
             <Flex
               flexDir="column"
               outline="1px solid black"

@@ -1,12 +1,22 @@
 import { Box, Flex, useToken } from "@chakra-ui/react";
 import React from "react";
 import SmallCircleLight from "./SmallCircleLight";
+import CustomLight from "./CustomLight";
 
 export default function LeftSide({ padding, marginTop }) {
-  const [red500, red900] = useToken("colors", ["red.500", "red.900"]);
+  const [red500, red900, blue500] = useToken("colors", [
+    "red.500",
+    "red.900",
+    "blue.500",
+  ]);
 
   return (
-    <Box h="100%" marginTop={marginTop} padding={padding}>
+    <Flex
+      gap={30}
+      flexDir="column"
+      h={`calc(100% - ${marginTop}px)`}
+      padding={padding}
+    >
       <Flex
         width="100%"
         height="55%"
@@ -72,6 +82,49 @@ export default function LeftSide({ padding, marginTop }) {
           </Flex>
         </Flex>
       </Flex>
-    </Box>
+      <Flex flex={1}>
+        <Box
+          width="50px"
+          height="50px"
+          borderRadius="50%"
+          backgroundColor="black"
+        />
+        <Box marginLeft={10}>
+          <Flex justifyContent="space-between">
+            <CustomLight
+              width={40}
+              height={10}
+              borderRadius="10px"
+              offColor={red500}
+              onColor={red500}
+            />
+            <CustomLight
+              width={40}
+              height={10}
+              borderRadius="10px"
+              offColor={blue500}
+              onColor={blue500}
+            />
+          </Flex>
+          <Flex
+            alignItems="center"
+            marginTop="40px"
+            h="calc(60% - 40px)"
+            w="160px"
+          >
+            <Box
+              h="100%"
+              w="100%"
+              bgColor="green.300"
+              borderColor="black"
+              borderStyle="solid"
+              borderWidth={1}
+              borderRadius="md"
+            />
+          </Flex>
+        </Box>
+        <Box></Box>
+      </Flex>
+    </Flex>
   );
 }

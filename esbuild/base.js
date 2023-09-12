@@ -6,4 +6,5 @@ module.exports = {
   platform: "browser",
   target: ["es6"],
   outdir: "output",
+  loader: { ".png": "base64" },
 };
