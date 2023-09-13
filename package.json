@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "node esbuild/development.js",
-    "build": "NODE_ENV=production node esbuild/production.js"
+    "build": "NODE_ENV=production node esbuild/production.js",
+    "dev:bun": "bun ./bun/development.js",
+    "build:bun": "bun ./bun/production.js"
   },
   "keywords": [],
   "author": "",
