@@ -1,7 +1,5 @@
 import React from "react";
 import { Flex } from "@chakra-ui/react";
-import kantoPhoto from "../../assets/kanto-1st-gen.png";
-import sinnohPhoto from "../../assets/sinnoh-4th-gen.png";
 import PokedexIcon from "../../components/PokedexIcon/PokedexIcon";
 import pokedexList from "../../constants/pokedex";
 
