@@ -3,7 +3,7 @@ import * as React from "react";
 import BottomScreen from "./bottomScreen/BottomScreen";
 import Center from "./center/Center";
 import TopScreen from "./topScreen/TopScreen";
-import { requestList } from "../api/requestList";
+import { requestList } from "../../api/requestList";
 
 const MAX_POKEMON = 151;
 

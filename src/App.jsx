@@ -1,9 +1,9 @@
 import React from "react";
 
 import { Routes, Route } from "react-router-dom";
-import Sinnoh4thGenDex from "./Sinnoh4thGenDex";
-import Kanto1stGenDex from "./Kanto1stGenDex";
-import MainMenu from "./MainMenu";
+import MainMenu from "./screens/MainMenu";
+import Kanto1stGenDex from "./screens/Kanto1stGenDex";
+import Sinnoh4thGenDex from "./screens/Sinnoh4thGenDex/Sinnoh4thGen";
 
 const App = () => {
   return (

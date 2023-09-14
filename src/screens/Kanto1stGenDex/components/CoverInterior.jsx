@@ -2,7 +2,7 @@ import { Flex, Box, Grid, useToken, Center } from "@chakra-ui/react";
 import React from "react";
 import SmallCircleLight from "./SmallCircleLight";
 import CustomLight from "./CustomLight";
-import { useResizeObserver } from "../../hooks/useResizeObserver";
+import { useResizeObserver } from "../../../hooks/useResizeObserver";
 
 const CoverInterior = () => {
   const [red500, red900, green500, green900, gray600, orange400] = useToken(

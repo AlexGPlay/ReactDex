@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Box, Flex, useToken } from "@chakra-ui/react";
-import { useResizeObserver } from "../hooks/useResizeObserver";
+import { useResizeObserver } from "../../hooks/useResizeObserver";
 import CircleLight from "./components/CircleLight";
 import SmallCircleLight from "./components/SmallCircleLight";
 import CoverInterior from "./components/CoverInterior";

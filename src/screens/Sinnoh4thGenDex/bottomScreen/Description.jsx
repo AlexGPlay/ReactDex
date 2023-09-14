@@ -1,8 +1,8 @@
 import { Box, Flex, Grid, GridItem, Image } from "@chakra-ui/react";
 import React from "react";
 import TypeBadge from "../components/TypeBadge";
-import { usePokemonData } from "../../hooks/usePokemonData";
-import { capitalize } from "../../util/capitalize";
+import { usePokemonData } from "../../../hooks/usePokemonData";
+import { capitalize } from "../../../util/capitalize";
 
 const Description = ({ currentPokemon }) => {
   const { data } = usePokemonData({ id: currentPokemon + 1 });

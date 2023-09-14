@@ -1,6 +1,6 @@
 import { Box, Flex } from "@chakra-ui/react";
 import React from "react";
-import { capitalize } from "../../util/capitalize";
+import { capitalize } from "../../../util/capitalize";
 import ListItem from "./ListItem";
 
 const CENTER_PX = 129;
