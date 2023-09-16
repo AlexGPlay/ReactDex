@@ -1,4 +1,4 @@
-import { Box, ChakraProvider, Flex } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import * as React from "react";
 import BottomScreen from "./bottomScreen/BottomScreen";
 import Center from "./center/Center";
@@ -41,25 +41,17 @@ const Sinnoh4thGenDex = () => {
   }, []);
 
   return (
-    <ChakraProvider>
-      <Flex
-        w="100%"
-        h="100%"
-        justifyContent="center"
-        alignItems="center"
-        bgColor="#202124"
-      >
-        <Box width={800}>
-          <TopScreen
-            pokemon={pokemon}
-            currentPokemon={currentPokemon}
-            setCurrentPokemon={setCurrentPokemon}
-          />
-          <Center />
-          <BottomScreen currentPokemon={currentPokemon} />
-        </Box>
-      </Flex>
-    </ChakraProvider>
+    <Flex w="100%" h="100%" justifyContent="center" alignItems="center">
+      <Box width={800}>
+        <TopScreen
+          pokemon={pokemon}
+          currentPokemon={currentPokemon}
+          setCurrentPokemon={setCurrentPokemon}
+        />
+        <Center />
+        <BottomScreen currentPokemon={currentPokemon} />
+      </Box>
+    </Flex>
   );
 };
 

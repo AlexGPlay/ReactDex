@@ -14,7 +14,6 @@ const HINGE_WIDTH = 50;
 const RIGHT_PART_WIDTH = LEFT_PART_WIDTH - HINGE_WIDTH;
 
 const Kanto1stGenDex = () => {
-  const bgColor = "#202124";
   const [isOpen, setIsOpen] = useState(false);
   const [red500, red900, yellow500, yellow900, green500, green900] = useToken(
     "colors",
@@ -82,13 +81,7 @@ const Kanto1stGenDex = () => {
   };
 
   return (
-    <Flex
-      bgColor={bgColor}
-      alignItems="center"
-      h="100vh"
-      w="100%"
-      ref={setParentRef}
-    >
+    <Flex alignItems="center" h="100vh" w="100%" ref={setParentRef}>
       <motion.div
         style={{ display: "flex", height: 800 }}
         animate={isOpen ? "open" : "closed"}

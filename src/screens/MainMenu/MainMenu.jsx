@@ -8,7 +8,6 @@ const MainMenu = () => {
     <Flex
       gap={2}
       flexWrap="wrap"
-      backgroundColor="#202124"
       minH="100vh"
       justifyContent="center"
       alignItems="center"
