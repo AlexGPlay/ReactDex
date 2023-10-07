@@ -6,6 +6,9 @@ import CircleLight from "./components/CircleLight";
 import SmallCircleLight from "./components/SmallCircleLight";
 import CoverInterior from "./components/CoverInterior";
 import LeftSide from "./components/LeftSide";
+import { POKEDEX_RED } from "./constants";
+import POKEMON_ENTRIES from "../../constants/1stGenEntries";
+import { usePokemonData } from "../../hooks/usePokemonData";
 
 const CLOSE_OPEN_ANIMATION_DURATION = 0.75;
 const COVER_VISUAL_CHANGE = CLOSE_OPEN_ANIMATION_DURATION / 2;
@@ -35,7 +38,7 @@ const Kanto1stGenDex = () => {
     setRef: setSubheaderHeight,
   } = useResizeObserver();
 
-  const topMargins = (headerHeight + subheaderHeight) * 0.15;
+  const topMargins = (headerHeight + subheaderHeight) * 0.25;
   const topCircleDimensions = headerHeight + subheaderHeight - topMargins * 2;
 
   const coverVariants = {
@@ -80,6 +83,21 @@ const Kanto1stGenDex = () => {
     },
   };
 
+  const [selectedPokemonIdx, setSelectedPokemonIdx] = useState(0);
+  const selectedPokemon = POKEMON_ENTRIES[selectedPokemonIdx];
+
+  const handleSelectedPokemon = (acc) => {
+    setSelectedPokemonIdx((currentIdx) => {
+      const newIdx = currentIdx + acc;
+      if (newIdx < 0) return 0;
+      if (newIdx >= POKEMON_ENTRIES.length) return POKEMON_ENTRIES.length - 1;
+      return newIdx;
+    });
+  };
+
+  const { data } = usePokemonData({ id: selectedPokemon });
+  console.log(data);
+
   return (
     <Flex alignItems="center" h="100vh" w="100%" ref={setParentRef}>
       <motion.div
@@ -91,13 +109,13 @@ const Kanto1stGenDex = () => {
           flexDir="column"
           h="100%"
           w={LEFT_PART_WIDTH}
-          bgColor="red"
+          bgColor={POKEDEX_RED}
           outline="1px solid black"
         >
           <Box
             h="12%"
             w="100%"
-            backgroundColor="red"
+            backgroundColor={POKEDEX_RED}
             position="relative"
             ref={setHeaderHeight}
             paddingTop={`${topMargins}px`}
@@ -131,7 +149,7 @@ const Kanto1stGenDex = () => {
               h="67%"
               top="100%"
               left="-1px"
-              background="red"
+              background={POKEDEX_RED}
               overflowY="clip"
               borderBottom="1px solid black"
               borderLeft="1px solid black"
@@ -141,13 +159,13 @@ const Kanto1stGenDex = () => {
                 width: "100%",
                 height: "100%",
                 left: "44%",
-                background: "red",
+                background: POKEDEX_RED,
                 borderTop: "1px solid black",
                 transform: "rotate(135deg)",
               }}
             />
           </Box>
-          <Flex h="88%" w="100%" background="red">
+          <Flex h="88%" w="100%" background={POKEDEX_RED}>
             <Flex
               flexDir="column"
               justifyContent="flex-end"
@@ -156,7 +174,12 @@ const Kanto1stGenDex = () => {
               w="100%"
               borderTop="1px solid black"
             >
-              <LeftSide marginTop={subheaderHeight} padding={topMargins} />
+              <LeftSide
+                marginTop={subheaderHeight}
+                padding={topMargins}
+                pokemonId={selectedPokemon}
+                onDPadClick={(acc) => handleSelectedPokemon(acc)}
+              />
             </Flex>
             <Flex
               flexDir="column"
@@ -164,7 +187,7 @@ const Kanto1stGenDex = () => {
               borderTop="1px solid black"
               h="100%"
               w={HINGE_WIDTH}
-              background="red"
+              background={POKEDEX_RED}
             >
               <Box h="10%" />
               <Box h="2%" outline="1px solid black" />
@@ -185,7 +208,7 @@ const Kanto1stGenDex = () => {
             outline: "1px solid black",
             height: "80%",
             width: RIGHT_PART_WIDTH,
-            backgroundColor: "red",
+            backgroundColor: POKEDEX_RED,
             marginTop: "auto",
             transformOrigin: "left",
             cursor: "pointer",
@@ -203,7 +226,7 @@ const Kanto1stGenDex = () => {
                 exit="exit"
                 variants={coverTransitionVariants}
               >
-                <CoverInterior />
+                <CoverInterior pokemonData={data} />
               </motion.div>
             ) : (
               <motion.div
@@ -236,7 +259,7 @@ const Kanto1stGenDex = () => {
             h="calc(10% + 1px)"
             bottom="100%"
             left="-1px"
-            background="red"
+            background={POKEDEX_RED}
             overflowY="clip"
             borderTop="1px solid black"
             borderLeft="1px solid black"
@@ -246,7 +269,7 @@ const Kanto1stGenDex = () => {
               width: "130%",
               height: "100%",
               left: "27%",
-              background: "red",
+              background: POKEDEX_RED,
               borderTop: "1px solid black",
               transform: "rotate(45deg)",
             }}

@@ -11,8 +11,12 @@ const getPokemonDataFromCache = (id) => {
 };
 
 const setPokemonDataCache = (id, data) => {
-  window.sessionStorage.setItem(id, JSON.stringify(data));
-  return data;
+  try {
+    window.sessionStorage.setItem(id, JSON.stringify(data));
+  } catch (err) {
+  } finally {
+    return data;
+  }
 };
 
 const hasPokemonDataInCache = (id) => {
@@ -23,10 +27,8 @@ export const usePokemonData = ({ id }) => {
   const [pokemonData, setPokemonData] = useState();
 
   useEffect(async () => {
-    const cacheData = getPokemonDataFromCache(id);
-
     if (hasPokemonDataInCache(id)) {
-      return setPokemonData(pokemonData);
+      return setPokemonData(getPokemonDataFromCache(id));
     }
 
     const requests = [requestSpeciesInfo({ id }), requestPokemonInfo({ id })];
@@ -44,8 +46,9 @@ export const usePokemonData = ({ id }) => {
   }, [id]);
 
   return {
-    rawData: getPokemonDataFromCache(id),
-    data: extractPokemonData(getPokemonDataFromCache(id)),
+    rawData: pokemonData,
+    data: extractPokemonData(pokemonData),
+    isLoading: !pokemonData,
   };
 };
 
