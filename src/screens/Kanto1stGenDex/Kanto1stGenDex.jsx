@@ -96,7 +96,6 @@ const Kanto1stGenDex = () => {
   };
 
   const { data } = usePokemonData({ id: selectedPokemon });
-  console.log(data);
 
   return (
     <Flex alignItems="center" h="100vh" w="100%" ref={setParentRef}>
