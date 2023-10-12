@@ -4,6 +4,9 @@ import {
   LIGHT_BLUE,
   LIGHT_BLUE_SHADOW,
   LIGHT_BLUE_WHITE,
+  DARK_BLUE,
+  DARK_BLUE_SHADOW,
+  DARK_BLUE_WHITE,
 } from "./constants";
 import React, { useState } from "react";
 import { motion } from "framer-motion";
@@ -96,8 +99,73 @@ const Johto2ndGenDex = () => {
             height: "405px",
             position: "absolute",
             transformOrigin: "bottom",
+            zIndex: 1,
           }}
-        ></motion.div>
+        >
+          <Box position="relative" w="100%" h="100%">
+            <Box position="relative" w="100%" h="100%" overflow="hidden">
+              <Box
+                w="457px"
+                h="457px"
+                borderRadius="50%"
+                backgroundColor="black"
+                top="0"
+                left="50%"
+                transform="translate(-50%, -50%)"
+                position="absolute"
+                padding="13px"
+              >
+                <Box
+                  w="100%"
+                  h="100%"
+                  borderRadius="50%"
+                  backgroundColor={POKEDEX_RED}
+                />
+              </Box>
+            </Box>
+
+            <Box
+              position="absolute"
+              top="-90px"
+              left="50%"
+              transform="translate(-50%, 0)"
+              w="180px"
+              h="180px"
+              backgroundColor="black"
+              borderRadius="50%"
+              zIndex={1}
+              p="15px"
+            >
+              <Flex
+                h="100%"
+                w="100%"
+                borderRadius="50%"
+                backgroundColor={DARK_BLUE}
+                position="relative"
+                overflow="hidden"
+              >
+                <Box
+                  position="absolute"
+                  h="75px"
+                  w="75px"
+                  borderRadius="50%"
+                  backgroundColor={DARK_BLUE_SHADOW}
+                  left="5px"
+                  bottom="5px"
+                  paddingLeft="30px"
+                  paddingTop="15px"
+                >
+                  <Box
+                    h="30px"
+                    w="30px"
+                    borderRadius="50%"
+                    backgroundColor={DARK_BLUE_WHITE}
+                  />
+                </Box>
+              </Flex>
+            </Box>
+          </Box>
+        </motion.div>
         <Box h="405px" border="1px solid black"></Box>
         <Box
           position="relative"
@@ -105,7 +173,7 @@ const Johto2ndGenDex = () => {
           border="1px solid black"
           borderTop={0}
         >
-          <Box>Content</Box>
+          <Box></Box>
           <motion.div
             animate={isLowerCaseOpen ? "open" : "closed"}
             variants={lowerCasePositionVariants}
@@ -113,7 +181,6 @@ const Johto2ndGenDex = () => {
               setIsLowerCaseOpen((isLowerCaseOpen) => !isLowerCaseOpen)
             }
             style={{
-              border: "1px solid black",
               backgroundColor: POKEDEX_RED,
               position: "absolute",
               height: "100%",
@@ -123,9 +190,42 @@ const Johto2ndGenDex = () => {
               transformOrigin: "left",
               x: "100%",
               rotateY: 180,
+              overflow: "hidden",
             }}
           >
-            Case
+            <Box position="relative" w="100%" h="100%">
+              <Box position="relative" w="100%" h="100%" overflow="hidden">
+                <Box
+                  w="457px"
+                  h="457px"
+                  borderRadius="50%"
+                  backgroundColor="black"
+                  top="0"
+                  left="calc(50% - 1px)"
+                  transform="translate(-50%, -50%)"
+                  position="absolute"
+                  padding="13px"
+                >
+                  <Box
+                    w="100%"
+                    h="100%"
+                    borderRadius="50%"
+                    backgroundColor={POKEDEX_RED}
+                  />
+                </Box>
+              </Box>
+              <Box
+                position="absolute"
+                top="-90px"
+                left="50%"
+                transform="translate(-50%, 0)"
+                w="180px"
+                h="180px"
+                backgroundColor="transparent"
+                borderRadius="50%"
+                boxShadow="0 0 0 999999px rgba(0,0,0, 0)"
+              />
+            </Box>
           </motion.div>
         </Box>
         <Flex
