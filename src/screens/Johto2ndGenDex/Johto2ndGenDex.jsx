@@ -80,11 +80,21 @@ const Johto2ndGenDex = () => {
       variants={animatePadding}
       style={{
         display: "flex",
+        flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
         paddingTop: isUpperCaseOpen ? 405 : 0,
       }}
     >
+      <Box w="573px" paddingLeft="40px">
+        <Box
+          borderBottom="100px solid black"
+          borderLeft="10px solid transparent"
+          borderRight="10px solid transparent"
+          height="0"
+          width="50px"
+        />
+      </Box>
       <Box
         borderRadius="md"
         backgroundColor={POKEDEX_RED}
