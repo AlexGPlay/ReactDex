@@ -43,7 +43,7 @@ const upperCasePositionVariants = {
 
 const animatePadding = {
   open: {
-    paddingTop: 405,
+    paddingTop: 500,
     transition: { duration: CASE_ANIMATION_DURATION },
   },
   closed: {
@@ -110,69 +110,135 @@ const Johto2ndGenDex = () => {
             zIndex: 1,
           }}
         >
-          <Box position="relative" w="100%" h="100%">
-            <Box position="relative" w="100%" h="100%" overflow="hidden">
-              <Box
-                w="457px"
-                h="457px"
-                borderRadius="50%"
-                backgroundColor="black"
-                top="0"
-                left="50%"
-                transform="translate(-50%, -50%)"
-                position="absolute"
-                padding="13px"
+          <AnimatePresence exitBeforeEnter>
+            {isUpperCaseOpen ? (
+              <motion.div
+                style={{
+                  position: "relative",
+                  width: "100%",
+                  height: "100%",
+                  padding: "0 30px 30px 30px",
+                }}
+                key={`${isUpperCaseOpen}`}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                variants={coverTransitionVariants}
               >
-                <Box
-                  w="100%"
+                <Flex
                   h="100%"
-                  borderRadius="50%"
-                  backgroundColor={POKEDEX_RED}
-                />
-              </Box>
-            </Box>
-
-            <Box
-              position="absolute"
-              top="-90px"
-              left="50%"
-              transform="translate(-50%, 0)"
-              w="180px"
-              h="180px"
-              backgroundColor="black"
-              borderRadius="50%"
-              zIndex={1}
-              p="15px"
-            >
-              <Flex
-                h="100%"
-                w="100%"
-                borderRadius="50%"
-                backgroundColor={DARK_BLUE}
-                position="relative"
-                overflow="hidden"
-              >
-                <Box
-                  position="absolute"
-                  h="75px"
-                  w="75px"
-                  borderRadius="50%"
-                  backgroundColor={DARK_BLUE_SHADOW}
-                  left="5px"
-                  bottom="5px"
-                  paddingLeft="30px"
-                  paddingTop="15px"
+                  w="100%"
+                  justifyContent="space-between"
+                  alignItems="flex-end"
                 >
                   <Box
-                    h="30px"
-                    w="30px"
-                    borderRadius="50%"
-                    backgroundColor={DARK_BLUE_WHITE}
+                    w="50px"
+                    h="100px"
+                    borderRadius="sm"
+                    backgroundColor={DARK_GRAY}
+                    border="1px solid black"
                   />
+                  <Box
+                    border="1px solid black"
+                    h="100%"
+                    w="353px"
+                    backgroundColor={DARK_GRAY}
+                    p="20px"
+                  />
+                  <Box
+                    w="50px"
+                    h="100px"
+                    borderRadius="sm"
+                    backgroundColor={DARK_GRAY}
+                    border="1px solid black"
+                  />
+                </Flex>
+
+                <Box
+                  position="absolute"
+                  top="-90px"
+                  left="50%"
+                  transform="translate(-50%, 0)"
+                  w="180px"
+                  h="180px"
+                  backgroundColor={DARK_GRAY}
+                  borderRadius="50%"
+                  zIndex={1}
+                />
+              </motion.div>
+            ) : (
+              <motion.div
+                style={{ position: "relative", width: "100%", height: "100%" }}
+                key={`${isUpperCaseOpen}`}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                variants={coverTransitionVariants}
+              >
+                <Box position="relative" w="100%" h="100%" overflow="hidden">
+                  <Box
+                    w="457px"
+                    h="457px"
+                    borderRadius="50%"
+                    backgroundColor="black"
+                    top="0"
+                    left="50%"
+                    transform="translate(-50%, -50%)"
+                    position="absolute"
+                    padding="13px"
+                  >
+                    <Box
+                      w="100%"
+                      h="100%"
+                      borderRadius="50%"
+                      backgroundColor={POKEDEX_RED}
+                    />
+                  </Box>
                 </Box>
-              </Flex>
-            </Box>
-          </Box>
+
+                <Box
+                  position="absolute"
+                  top="-90px"
+                  left="50%"
+                  transform="translate(-50%, 0)"
+                  w="180px"
+                  h="180px"
+                  backgroundColor="black"
+                  borderRadius="50%"
+                  zIndex={1}
+                  p="15px"
+                >
+                  <Flex
+                    h="100%"
+                    w="100%"
+                    borderRadius="50%"
+                    backgroundColor={DARK_BLUE}
+                    position="relative"
+                    overflow="hidden"
+                  >
+                    <Box
+                      position="absolute"
+                      h="75px"
+                      w="75px"
+                      borderRadius="50%"
+                      backgroundColor={DARK_BLUE_SHADOW}
+                      left="5px"
+                      bottom="5px"
+                      paddingLeft="30px"
+                      paddingTop="15px"
+                    >
+                      <Box
+                        h="30px"
+                        w="30px"
+                        borderRadius="50%"
+                        backgroundColor={DARK_BLUE_WHITE}
+                      />
+                    </Box>
+                  </Flex>
+                </Box>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </motion.div>
         <Flex
           alignItems="flex-end"
