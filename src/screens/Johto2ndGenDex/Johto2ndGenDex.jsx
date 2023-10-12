@@ -8,6 +8,7 @@ import {
   DARK_BLUE_SHADOW,
   DARK_BLUE_WHITE,
   DARK_GRAY,
+  LIGHT_BLACK,
   CASE_ANIMATION_DURATION,
 } from "./constants";
 import React, { useState } from "react";
@@ -173,7 +174,42 @@ const Johto2ndGenDex = () => {
             </Box>
           </Box>
         </motion.div>
-        <Box h="405px" border="1px solid black"></Box>
+        <Flex
+          alignItems="flex-end"
+          h="405px"
+          border="1px solid black"
+          p="30px"
+          justifyContent="space-between"
+        >
+          <Box
+            w="50px"
+            h="100px"
+            borderRadius="sm"
+            backgroundColor={DARK_GRAY}
+            border="1px solid black"
+          />
+          <Box
+            border="1px solid black"
+            h="100%"
+            w="353px"
+            backgroundColor={DARK_GRAY}
+            p="20px"
+          >
+            <Box
+              border="1px solid black"
+              h="100%"
+              w="100%"
+              backgroundColor={LIGHT_BLACK}
+            ></Box>
+          </Box>
+          <Box
+            w="50px"
+            h="100px"
+            borderRadius="sm"
+            backgroundColor={DARK_GRAY}
+            border="1px solid black"
+          />
+        </Flex>
         <Box
           position="relative"
           h="315px"
