@@ -181,7 +181,8 @@ const Johto2ndGenDex = () => {
               setIsLowerCaseOpen((isLowerCaseOpen) => !isLowerCaseOpen)
             }
             style={{
-              backgroundColor: POKEDEX_RED,
+              border: "1px solid black",
+              borderTop: 0,
               position: "absolute",
               height: "100%",
               width: "100%",
@@ -191,6 +192,7 @@ const Johto2ndGenDex = () => {
               x: "100%",
               rotateY: 180,
               overflow: "hidden",
+              background: `radial-gradient(circle at top center, transparent 90px, black 90px, ${POKEDEX_RED} 91px)`,
             }}
           >
             <Box position="relative" w="100%" h="100%">
@@ -199,32 +201,21 @@ const Johto2ndGenDex = () => {
                   w="457px"
                   h="457px"
                   borderRadius="50%"
-                  backgroundColor="black"
+                  border="13px solid black"
                   top="0"
                   left="calc(50% - 1px)"
                   transform="translate(-50%, -50%)"
                   position="absolute"
-                  padding="13px"
                 >
                   <Box
                     w="100%"
                     h="100%"
                     borderRadius="50%"
                     backgroundColor={POKEDEX_RED}
+                    background={`radial-gradient(circle at center, transparent 90px, black 90px, ${POKEDEX_RED} 91px)`}
                   />
                 </Box>
               </Box>
-              <Box
-                position="absolute"
-                top="-90px"
-                left="50%"
-                transform="translate(-50%, 0)"
-                w="180px"
-                h="180px"
-                backgroundColor="transparent"
-                borderRadius="50%"
-                boxShadow="0 0 0 999999px rgba(0,0,0, 0)"
-              />
             </Box>
           </motion.div>
         </Box>
