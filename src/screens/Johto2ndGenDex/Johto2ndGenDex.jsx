@@ -7,33 +7,22 @@ import {
   DARK_BLUE,
   DARK_BLUE_SHADOW,
   DARK_BLUE_WHITE,
+  DARK_GRAY,
+  CASE_ANIMATION_DURATION,
 } from "./constants";
 import React, { useState } from "react";
-import { motion } from "framer-motion";
-
-/**
- * 185 (12) => Panel de arriba (bisagra)
- * 159 => Panel de abajo
- * 77 => Hueco inferior
- *
- * ==> 421
- *
- * Ancho => 573
- *
- * 0.45 => 405 (27)
- * 0.35 => 315
- * 0.20 => 180
- */
+import { AnimatePresence, motion } from "framer-motion";
+import DPad from "../../components/DPad";
 
 const lowerCasePositionVariants = {
   open: {
     x: "100%",
-    transition: { duration: 1 },
+    transition: { duration: CASE_ANIMATION_DURATION },
     rotateY: 0,
   },
   closed: {
     x: "100%",
-    transition: { duration: 1 },
+    transition: { duration: CASE_ANIMATION_DURATION },
     rotateY: 180,
   },
 };
@@ -41,12 +30,12 @@ const lowerCasePositionVariants = {
 const upperCasePositionVariants = {
   open: {
     y: "-100%",
-    transition: { duration: 1 },
+    transition: { duration: CASE_ANIMATION_DURATION },
     rotateX: 0,
   },
   closed: {
     y: "-100%",
-    transition: { duration: 1 },
+    transition: { duration: CASE_ANIMATION_DURATION },
     rotateX: 180,
   },
 };
@@ -54,11 +43,29 @@ const upperCasePositionVariants = {
 const animatePadding = {
   open: {
     paddingTop: 405,
-    transition: { duration: 1 },
+    transition: { duration: CASE_ANIMATION_DURATION },
   },
   closed: {
     paddingTop: 0,
-    transition: { duration: 1 },
+    transition: { duration: CASE_ANIMATION_DURATION },
+  },
+};
+
+const coverTransitionVariants = {
+  initial: {
+    opacity: 0,
+    duration: 0,
+  },
+  animate: {
+    opacity: 1,
+    duration: 0,
+  },
+  exit: {
+    opacity: 0,
+    transition: {
+      delay: CASE_ANIMATION_DURATION / 2,
+      duration: 0,
+    },
   },
 };
 
@@ -173,7 +180,72 @@ const Johto2ndGenDex = () => {
           border="1px solid black"
           borderTop={0}
         >
-          <Box></Box>
+          <Box
+            position="relative"
+            w="100%"
+            h="100%"
+            overflow="hidden"
+            padding="120px 30px 30px 30px"
+          >
+            <Box
+              position="absolute"
+              top="0"
+              left="50%"
+              h="180px"
+              w="180px"
+              borderRadius="50%"
+              transform="translate(-50%, -50%)"
+              backgroundColor="transparent"
+              border="1px solid black"
+            />
+            <Flex justifyContent="space-between">
+              <DPad
+                width={45}
+                size={164}
+                color={DARK_GRAY}
+                onTopClick={() => onDPadClick(-1)}
+                onBottomClick={() => onDPadClick(1)}
+                onLeftClick={() => onDPadClick(-10)}
+                onRightClick={() => onDPadClick(10)}
+              />
+              <Flex flexDir="column" justifyContent="space-around">
+                <Box
+                  border="1px solid black"
+                  backgroundColor={DARK_GRAY}
+                  w="50px"
+                  h="25px"
+                  borderRadius="xl"
+                />
+                <Box
+                  border="1px solid black"
+                  backgroundColor={DARK_GRAY}
+                  w="50px"
+                  h="25px"
+                  borderRadius="xl"
+                />
+              </Flex>
+              <Flex
+                w="164px"
+                alignItems="flex-end"
+                justifyContent="space-evenly"
+              >
+                <Box
+                  border="1px solid black"
+                  backgroundColor={DARK_GRAY}
+                  w="50px"
+                  h="50px"
+                  borderRadius="50%"
+                />
+                <Box
+                  border="1px solid black"
+                  backgroundColor={DARK_GRAY}
+                  w="50px"
+                  h="50px"
+                  borderRadius="50%"
+                />
+              </Flex>
+            </Flex>
+          </Box>
           <motion.div
             animate={isLowerCaseOpen ? "open" : "closed"}
             variants={lowerCasePositionVariants}
@@ -195,28 +267,56 @@ const Johto2ndGenDex = () => {
               background: `radial-gradient(circle at top center, transparent 90px, black 90px, ${POKEDEX_RED} 91px)`,
             }}
           >
-            <Box position="relative" w="100%" h="100%">
-              <Box position="relative" w="100%" h="100%" overflow="hidden">
-                <Box
-                  w="457px"
-                  h="457px"
-                  borderRadius="50%"
-                  border="13px solid black"
-                  top="0"
-                  left="calc(50% - 1px)"
-                  transform="translate(-50%, -50%)"
-                  position="absolute"
+            <AnimatePresence exitBeforeEnter>
+              {isLowerCaseOpen ? (
+                <motion.div
+                  key={`${isLowerCaseOpen}`}
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                  variants={coverTransitionVariants}
+                  style={{
+                    position: "relative",
+                    width: "100%",
+                    height: "100%",
+                    overflow: "hidden",
+                  }}
+                ></motion.div>
+              ) : (
+                <motion.div
+                  key={`${isLowerCaseOpen}`}
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                  variants={coverTransitionVariants}
+                  style={{
+                    position: "relative",
+                    width: "100%",
+                    height: "100%",
+                    overflow: "hidden",
+                  }}
                 >
                   <Box
-                    w="100%"
-                    h="100%"
+                    w="457px"
+                    h="457px"
                     borderRadius="50%"
-                    backgroundColor={POKEDEX_RED}
-                    background={`radial-gradient(circle at center, transparent 90px, black 90px, ${POKEDEX_RED} 91px)`}
-                  />
-                </Box>
-              </Box>
-            </Box>
+                    border="13px solid black"
+                    top="0"
+                    left="calc(50% - 1px)"
+                    transform="translate(-50%, -50%)"
+                    position="absolute"
+                  >
+                    <Box
+                      w="100%"
+                      h="100%"
+                      borderRadius="50%"
+                      backgroundColor={POKEDEX_RED}
+                      background={`radial-gradient(circle at center, transparent 90px, black 90px, ${POKEDEX_RED} 91px)`}
+                    />
+                  </Box>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </motion.div>
         </Box>
         <Flex

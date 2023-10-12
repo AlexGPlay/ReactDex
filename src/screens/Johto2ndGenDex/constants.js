@@ -8,3 +8,5 @@ export const DARK_BLUE_WHITE = "#8F9098";
 export const DARK_GRAY = "#363636";
 export const LIGHT_BLACK = "#1F1F1F";
 export const BLACK = "#000";
+
+export const CASE_ANIMATION_DURATION = 1;

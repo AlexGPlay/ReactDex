@@ -28,8 +28,8 @@ const DPad = ({
   return (
     <Flex h={size} w={size} alignItems="center" flexDir="column">
       <Box
-        width={verticalPadsWidth}
-        height={verticalPadsHeight}
+        width={`${verticalPadsWidth}px`}
+        height={`${verticalPadsHeight}px`}
         bgColor={color}
         borderColor={borderColor}
         borderWidth={1}
@@ -45,8 +45,8 @@ const DPad = ({
         borderRightRadius={4}
       >
         <Box
-          width={horizontalPadsWidth}
-          height={horizontalPadsHeight}
+          width={`${horizontalPadsWidth}px`}
+          height={`${horizontalPadsHeight}px`}
           bgColor={color}
           borderLeftRadius={4}
           borderColor={borderColor}
@@ -55,10 +55,14 @@ const DPad = ({
           borderRightColor="transparent"
           onClick={onLeftClick}
         />
-        <Box width={middleWidth} height={middleHeight} bgColor={color} />
         <Box
-          width={horizontalPadsWidth}
-          height={horizontalPadsHeight}
+          width={`${middleWidth}px`}
+          height={`${middleHeight}px`}
+          bgColor={color}
+        />
+        <Box
+          width={`${horizontalPadsWidth}px`}
+          height={`${horizontalPadsHeight}px`}
           bgColor={color}
           borderRightRadius={4}
           borderColor={borderColor}
@@ -69,8 +73,8 @@ const DPad = ({
         />
       </Flex>
       <Box
-        width={verticalPadsWidth}
-        height={verticalPadsHeight}
+        width={`${verticalPadsWidth}px`}
+        height={`${verticalPadsHeight}px`}
         bgColor={color}
         borderBottomRadius={4}
         borderColor={borderColor}
