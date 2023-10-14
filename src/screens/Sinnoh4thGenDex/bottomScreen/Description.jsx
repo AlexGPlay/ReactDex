@@ -48,7 +48,7 @@ const Description = ({ currentPokemon }) => {
           padding="2px"
           paddingLeft={5}
         >
-          N.º {currentPokemon + 1} {capitalize(data.name || "")}
+          N.º {currentPokemon + 1} {capitalize(data?.name || "")}
         </Box>
         <Flex
           borderTopWidth="5px"
@@ -58,7 +58,7 @@ const Description = ({ currentPokemon }) => {
           alignItems="center"
           paddingLeft={5}
         >
-          {data.genera}
+          {data?.genera}
         </Flex>
       </GridItem>
       <GridItem
@@ -68,14 +68,14 @@ const Description = ({ currentPokemon }) => {
         alignItems="center"
         gap={2}
       >
-        {data.types.map((type) => (
+        {data?.types.map((type) => (
           <TypeBadge key={type} type={type} />
         ))}
       </GridItem>
       <GridItem rowSpan={3} colSpan={7} bg="gray.200" borderRadius={5} p={1}>
         <Flex pr={5} pl={5}>
           <Box>Height</Box>
-          <Box marginLeft="auto">{`${data.height} m`}</Box>
+          <Box marginLeft="auto">{`${data?.height} m`}</Box>
         </Flex>
         <Flex
           pr={5}
@@ -85,7 +85,7 @@ const Description = ({ currentPokemon }) => {
           borderTopColor="gray.800"
         >
           <Box>Weight</Box>
-          <Box marginLeft="auto">{`${data.weight} kg`}</Box>
+          <Box marginLeft="auto">{`${data?.weight} kg`}</Box>
         </Flex>
       </GridItem>
       <GridItem
@@ -116,7 +116,7 @@ const Description = ({ currentPokemon }) => {
           w="5px"
           bgColor="red.300"
         />
-        {data.description}
+        {data?.description}
         <Box
           position="absolute"
           right="10px"
