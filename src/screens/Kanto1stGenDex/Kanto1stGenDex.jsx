@@ -98,7 +98,7 @@ const Kanto1stGenDex = () => {
   const { data } = usePokemonData({ id: selectedPokemon });
 
   return (
-    <Flex alignItems="center" h="100vh" w="100%" ref={setParentRef}>
+    <Flex alignItems="center" h="100%" w="100%" ref={setParentRef}>
       <motion.div
         style={{ display: "flex", height: 800 }}
         animate={isOpen ? "open" : "closed"}
