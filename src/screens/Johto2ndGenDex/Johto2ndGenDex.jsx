@@ -628,7 +628,7 @@ const Johto2ndGenDex = () => {
                     borderRadius="50%"
                     border="13px solid black"
                     top="0"
-                    left="calc(50% - 1px)"
+                    left="50%"
                     transform="translate(-50%, -50%)"
                     position="absolute"
                   >
