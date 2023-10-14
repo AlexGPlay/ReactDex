@@ -19,7 +19,6 @@ import { getSecondGenSprite } from "./utils";
 import { usePokemonData } from "../../hooks/usePokemonData";
 import { capitalize } from "../../util/capitalize";
 import { selectIndex } from "../../util/selectIndex";
-import { flushSync } from "react-dom";
 
 const lowerCasePositionVariants = {
   open: {
