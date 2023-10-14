@@ -175,7 +175,7 @@ const Kanto1stGenDex = () => {
             >
               <LeftSide
                 marginTop={subheaderHeight}
-                padding={topMargins}
+                padding={`${topMargins}px`}
                 pokemonId={selectedPokemon}
                 onDPadClick={(acc) => handleSelectedPokemon(acc)}
               />
