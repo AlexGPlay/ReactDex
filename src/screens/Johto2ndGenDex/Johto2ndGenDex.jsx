@@ -1,4 +1,4 @@
-import { Box, Flex } from "@chakra-ui/react";
+import { Box, Flex, Img, Text } from "@chakra-ui/react";
 import {
   POKEDEX_RED,
   LIGHT_BLUE,
@@ -14,6 +14,10 @@ import {
 import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import DPad from "../../components/DPad";
+import POKEMON_ENTRIES from "../../constants/2ndGenEntries";
+import { getSecondGenSprite } from "./utils";
+import { usePokemonData } from "../../hooks/usePokemonData";
+import { capitalize } from "../../util/capitalize";
 
 const lowerCasePositionVariants = {
   open: {
@@ -70,9 +74,33 @@ const coverTransitionVariants = {
   },
 };
 
+const ClassicBox = ({ children, h, w, borderWidth, ...props }) => (
+  <Box
+    backgroundColor="gray"
+    padding={borderWidth}
+    border="1px solid black"
+    borderRadius="sm"
+    h={h}
+    w={w}
+  >
+    <Box h="100%" w="100%" border="1px solid black" {...props}>
+      {children}
+    </Box>
+  </Box>
+);
+
 const Johto2ndGenDex = () => {
   const [isLowerCaseOpen, setIsLowerCaseOpen] = useState(false);
   const [isUpperCaseOpen, setIsUpperCaseOpen] = useState(false);
+
+  const [isOn, setIsOn] = useState(true);
+  const [selectedPokemon, setSelectedPokemon] = useState();
+
+  const { isLoading, data } = usePokemonData({ id: selectedPokemon });
+
+  const toggleOn = () => {
+    setIsOn((isOn) => !isOn);
+  };
 
   return (
     <motion.div
@@ -118,6 +146,8 @@ const Johto2ndGenDex = () => {
             position: "absolute",
             transformOrigin: "bottom",
             zIndex: 1,
+            y: "-100%",
+            rotateX: 180,
           }}
         >
           <AnimatePresence exitBeforeEnter>
@@ -275,8 +305,88 @@ const Johto2ndGenDex = () => {
               border="1px solid black"
               h="100%"
               w="100%"
-              backgroundColor={LIGHT_BLACK}
-            ></Box>
+              backgroundColor={isOn ? LIGHT_BLUE_WHITE : LIGHT_BLACK}
+              transition="background-color 0.5s ease-in-out"
+              padding="10px"
+              overflow="auto"
+            >
+              {!selectedPokemon ? (
+                <Flex flexWrap="wrap" gap="12px">
+                  {POKEMON_ENTRIES.map((entry) => (
+                    <Box
+                      key={entry}
+                      w="45px"
+                      h="45px"
+                      padding="2.5px"
+                      backgroundColor="gray"
+                      border="1px solid black"
+                      cursor="pointer"
+                      onClick={() => setSelectedPokemon(entry)}
+                    >
+                      <Box
+                        p="1px"
+                        backgroundColor="white"
+                        border="1px solid black"
+                      >
+                        <Img
+                          width="100%"
+                          height="100%"
+                          src={getSecondGenSprite(entry)}
+                        />
+                      </Box>
+                    </Box>
+                  ))}
+                </Flex>
+              ) : (
+                <Flex h="100%" w="100%" flexDir="column">
+                  <Flex h="115px" w="100%" justifyContent="space-between">
+                    <ClassicBox
+                      backgroundColor="white"
+                      borderWidth="5px"
+                      h="115px"
+                      w="115px"
+                      p="5px"
+                    >
+                      <Img
+                        h="100%"
+                        w="100%"
+                        src={getSecondGenSprite(selectedPokemon)}
+                      />
+                    </ClassicBox>
+                    <ClassicBox
+                      h="115px"
+                      w="160px"
+                      backgroundColor="white"
+                      borderWidth="5px"
+                      p="5px"
+                    >
+                      {isLoading ? null : (
+                        <Flex flexDir="column" h="100%" w="100%">
+                          <Text fontWeight="bold" fontSize="md">
+                            {capitalize(data.name)}
+                          </Text>
+                          <Text fontSize="small">{data.genera}</Text>
+                          <Text fontSize="small">Height: {data.height}m</Text>
+                          <Text fontSize="small">Weight: {data.weight}kg</Text>
+                        </Flex>
+                      )}
+                    </ClassicBox>
+                  </Flex>
+                  <Box h="150px" w="100%" marginTop="auto">
+                    <ClassicBox
+                      h="100%"
+                      w="100%"
+                      backgroundColor="white"
+                      borderWidth="5px"
+                      p="5px"
+                      overflow="auto"
+                    >
+                      {isLoading ? null : data.description}
+                    </ClassicBox>
+                  </Box>
+                </Flex>
+              )}
+            </Box>
           </Box>
           <Box
             w="50px"
@@ -327,6 +437,7 @@ const Johto2ndGenDex = () => {
                   w="50px"
                   h="25px"
                   borderRadius="xl"
+                  onClick={toggleOn}
                 />
                 <Box
                   border="1px solid black"
@@ -334,6 +445,7 @@ const Johto2ndGenDex = () => {
                   w="50px"
                   h="25px"
                   borderRadius="xl"
+                  onClick={toggleOn}
                 />
               </Flex>
               <Flex

@@ -27,6 +27,10 @@ export const usePokemonData = ({ id }) => {
   const [pokemonData, setPokemonData] = useState();
 
   useEffect(async () => {
+    if (!id) {
+      return setPokemonData(null);
+    }
+
     if (hasPokemonDataInCache(id)) {
       return setPokemonData(getPokemonDataFromCache(id));
     }
@@ -53,6 +57,8 @@ export const usePokemonData = ({ id }) => {
 };
 
 const extractPokemonData = (data) => {
+  if (!data) return null;
+
   return {
     name: data?.pokemon?.name,
     genera: data?.species?.genera.find(
