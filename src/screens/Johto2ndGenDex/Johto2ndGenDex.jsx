@@ -19,6 +19,7 @@ import { getSecondGenSprite } from "./utils";
 import { usePokemonData } from "../../hooks/usePokemonData";
 import { capitalize } from "../../util/capitalize";
 import { selectIndex } from "../../util/selectIndex";
+import { flushSync } from "react-dom";
 
 const lowerCasePositionVariants = {
   open: {
@@ -114,6 +115,7 @@ const Johto2ndGenDex = () => {
 
   const [isOn, setIsOn] = useState(true);
   const [selectedPokemon, setSelectedPokemon] = useState();
+  const [highlightedPokemon, setHighlightedPokemon] = useState();
 
   const { isLoading, data } = usePokemonData({
     id: POKEMON_ENTRIES[selectedPokemon],
@@ -122,13 +124,68 @@ const Johto2ndGenDex = () => {
   const toggleOn = () => {
     setIsOn((isOn) => !isOn);
     setSelectedPokemon(null);
+    setHighlightedPokemon(null);
+  };
+
+  const incrementSelectedPokemon = (value) => {
+    const newIndex = selectIndex(POKEMON_ENTRIES, value + selectedPokemon);
+    selectPokemon(newIndex);
   };
 
   const selectPokemon = (value) => {
-    setSelectedPokemon((currentIndex) => {
-      const newIndex = selectIndex(POKEMON_ENTRIES, value + currentIndex);
-      return newIndex;
-    });
+    setSelectedPokemon(value);
+    setHighlightedPokemon(value);
+  };
+
+  const handleDPad = (value) => {
+    if (selectedPokemon === undefined || selectedPokemon === null) {
+      const elementsPerRow = 5;
+      if (highlightedPokemon === undefined || highlightedPokemon === null) {
+        return setHighlightedPokemon(0);
+      }
+
+      if (value === "TOP") {
+        setHighlightedPokemon((currentHighlightedPokemon) => {
+          const newIndex = selectIndex(
+            POKEMON_ENTRIES,
+            currentHighlightedPokemon - elementsPerRow
+          );
+          return newIndex;
+        });
+      }
+      if (value === "BOTTOM") {
+        setHighlightedPokemon((currentHighlightedPokemon) => {
+          const newIndex = selectIndex(
+            POKEMON_ENTRIES,
+            currentHighlightedPokemon + elementsPerRow
+          );
+          return newIndex;
+        });
+      }
+      if (value === "LEFT") {
+        setHighlightedPokemon((currentHighlightedPokemon) => {
+          const newIndex = selectIndex(
+            POKEMON_ENTRIES,
+            currentHighlightedPokemon - 1
+          );
+          return newIndex;
+        });
+      }
+      if (value === "RIGHT") {
+        setHighlightedPokemon((currentHighlightedPokemon) => {
+          const newIndex = selectIndex(
+            POKEMON_ENTRIES,
+            currentHighlightedPokemon + 1
+          );
+          return newIndex;
+        });
+      }
+    } else {
+      if (value === "TOP") incrementSelectedPokemon(-1);
+      if (value === "BOTTOM") incrementSelectedPokemon(1);
+      if (value === "LEFT") incrementSelectedPokemon(-10);
+      if (value === "RIGHT") incrementSelectedPokemon(10);
+    }
   };
 
   return (
@@ -345,13 +402,16 @@ const Johto2ndGenDex = () => {
                     {POKEMON_ENTRIES.map((entry, idx) => (
                       <Box
                         key={entry}
+                        id={`pokemon-icon-${entry}`}
                         w="45px"
                         h="45px"
                         padding="2.5px"
-                        backgroundColor="gray"
+                        backgroundColor={
+                          highlightedPokemon === idx ? "orange" : "gray"
+                        }
                         border="1px solid black"
                         cursor="pointer"
-                        onClick={() => setSelectedPokemon(idx)}
+                        onClick={() => selectPokemon(idx)}
                       >
                         <Box
                           p="1px"
@@ -466,10 +526,10 @@ const Johto2ndGenDex = () => {
                 width={45}
                 size={164}
                 color={DARK_GRAY}
-                onTopClick={() => selectPokemon(-1)}
-                onBottomClick={() => selectPokemon(1)}
-                onLeftClick={() => selectPokemon(-10)}
-                onRightClick={() => selectPokemon(10)}
+                onTopClick={() => handleDPad("TOP")}
+                onBottomClick={() => handleDPad("BOTTOM")}
+                onLeftClick={() => handleDPad("LEFT")}
+                onRightClick={() => handleDPad("RIGHT")}
               />
               <Flex flexDir="column" justifyContent="space-around">
                 <Box
@@ -508,6 +568,7 @@ const Johto2ndGenDex = () => {
                   w="50px"
                   h="50px"
                   borderRadius="50%"
+                  onClick={() => setSelectedPokemon(highlightedPokemon)}
                 />
               </Flex>
             </Flex>
