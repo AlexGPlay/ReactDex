@@ -25,6 +25,7 @@ const hasPokemonDataInCache = (id) => {
 
 export const usePokemonData = ({ id }) => {
   const [pokemonData, setPokemonData] = useState();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(async () => {
     if (!id) {
@@ -35,6 +36,7 @@ export const usePokemonData = ({ id }) => {
       return setPokemonData(getPokemonDataFromCache(id));
     }
 
+    setIsLoading(true);
     const requests = [requestSpeciesInfo({ id }), requestPokemonInfo({ id })];
     const [speciesResponse, pokemonResponse] = await Promise.all(requests);
     const [speciesJson, pokemonJson] = await Promise.all([
@@ -47,12 +49,13 @@ export const usePokemonData = ({ id }) => {
       pokemon: pokemonJson,
     });
     setPokemonData(savedData);
+    setIsLoading(false);
   }, [id]);
 
   return {
     rawData: pokemonData,
     data: extractPokemonData(pokemonData),
-    isLoading: !pokemonData,
+    isLoading: isLoading || !pokemonData,
   };
 };
 

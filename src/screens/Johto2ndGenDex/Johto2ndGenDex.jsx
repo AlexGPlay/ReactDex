@@ -11,13 +11,14 @@ import {
   LIGHT_BLACK,
   CASE_ANIMATION_DURATION,
 } from "./constants";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import DPad from "../../components/DPad";
 import POKEMON_ENTRIES from "../../constants/2ndGenEntries";
 import { getSecondGenSprite } from "./utils";
 import { usePokemonData } from "../../hooks/usePokemonData";
 import { capitalize } from "../../util/capitalize";
+import { selectIndex } from "../../util/selectIndex";
 
 const lowerCasePositionVariants = {
   open: {
@@ -89,6 +90,24 @@ const ClassicBox = ({ children, h, w, borderWidth, ...props }) => (
   </Box>
 );
 
+const LoadingDots = ({ frequency }) => {
+  const [dots, setDots] = useState("");
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setDots((dots) => {
+        if (dots.length === 3) {
+          return "";
+        }
+        return dots + ".";
+      });
+    }, frequency);
+    return () => clearInterval(interval);
+  }, [frequency]);
+
+  return <Text>{dots}</Text>;
+};
+
 const Johto2ndGenDex = () => {
   const [isLowerCaseOpen, setIsLowerCaseOpen] = useState(false);
   const [isUpperCaseOpen, setIsUpperCaseOpen] = useState(false);
@@ -96,10 +115,20 @@ const Johto2ndGenDex = () => {
   const [isOn, setIsOn] = useState(true);
   const [selectedPokemon, setSelectedPokemon] = useState();
 
-  const { isLoading, data } = usePokemonData({ id: selectedPokemon });
+  const { isLoading, data } = usePokemonData({
+    id: POKEMON_ENTRIES[selectedPokemon],
+  });
 
   const toggleOn = () => {
     setIsOn((isOn) => !isOn);
+    setSelectedPokemon(null);
+  };
+
+  const selectPokemon = (value) => {
+    setSelectedPokemon((currentIndex) => {
+      const newIndex = selectIndex(POKEMON_ENTRIES, value + currentIndex);
+      return newIndex;
+    });
   };
 
   return (
@@ -310,82 +339,94 @@ const Johto2ndGenDex = () => {
               padding="10px"
               overflow="auto"
             >
-              {!selectedPokemon ? (
-                <Flex flexWrap="wrap" gap="12px">
-                  {POKEMON_ENTRIES.map((entry) => (
-                    <Box
-                      key={entry}
-                      w="45px"
-                      h="45px"
-                      padding="2.5px"
-                      backgroundColor="gray"
-                      border="1px solid black"
-                      cursor="pointer"
-                      onClick={() => setSelectedPokemon(entry)}
-                    >
+              {isOn ? (
+                selectedPokemon === undefined || selectedPokemon === null ? (
+                  <Flex flexWrap="wrap" gap="12px">
+                    {POKEMON_ENTRIES.map((entry, idx) => (
                       <Box
-                        p="1px"
-                        backgroundColor="white"
+                        key={entry}
+                        w="45px"
+                        h="45px"
+                        padding="2.5px"
+                        backgroundColor="gray"
                         border="1px solid black"
+                        cursor="pointer"
+                        onClick={() => setSelectedPokemon(idx)}
+                      >
+                        <Box
+                          p="1px"
+                          backgroundColor="white"
+                          border="1px solid black"
+                        >
+                          <Img
+                            width="100%"
+                            height="100%"
+                            src={getSecondGenSprite(entry)}
+                          />
+                        </Box>
+                      </Box>
+                    ))}
+                  </Flex>
+                ) : (
+                  <Flex h="100%" w="100%" flexDir="column">
+                    <Flex h="115px" w="100%" justifyContent="space-between">
+                      <ClassicBox
+                        backgroundColor="white"
+                        borderWidth="5px"
+                        h="115px"
+                        w="115px"
+                        p="5px"
                       >
                         <Img
-                          width="100%"
-                          height="100%"
-                          src={getSecondGenSprite(entry)}
+                          h="100%"
+                          w="100%"
+                          src={getSecondGenSprite(
+                            POKEMON_ENTRIES[selectedPokemon]
+                          )}
                         />
-                      </Box>
-                    </Box>
-                  ))}
-                </Flex>
-              ) : (
-                <Flex h="100%" w="100%" flexDir="column">
-                  <Flex h="115px" w="100%" justifyContent="space-between">
-                    <ClassicBox
-                      backgroundColor="white"
-                      borderWidth="5px"
-                      h="115px"
-                      w="115px"
-                      p="5px"
-                    >
-                      <Img
+                      </ClassicBox>
+                      <ClassicBox
+                        h="115px"
+                        w="160px"
+                        backgroundColor="white"
+                        borderWidth="5px"
+                        p="5px"
+                      >
+                        {isLoading ? (
+                          <LoadingDots frequency={500} />
+                        ) : (
+                          <Flex flexDir="column" h="100%" w="100%">
+                            <Text fontWeight="bold" fontSize="md">
+                              {capitalize(data.name)}
+                            </Text>
+                            <Text fontSize="small">{data.genera}</Text>
+                            <Text fontSize="small">Height: {data.height}m</Text>
+                            <Text fontSize="small">
+                              Weight: {data.weight}kg
+                            </Text>
+                          </Flex>
+                        )}
+                      </ClassicBox>
+                    </Flex>
+                    <Box h="150px" w="100%" marginTop="auto">
+                      <ClassicBox
                         h="100%"
                         w="100%"
-                        src={getSecondGenSprite(selectedPokemon)}
-                      />
-                    </ClassicBox>
-                    <ClassicBox
-                      h="115px"
-                      w="160px"
-                      backgroundColor="white"
-                      borderWidth="5px"
-                      p="5px"
-                    >
-                      {isLoading ? null : (
-                        <Flex flexDir="column" h="100%" w="100%">
-                          <Text fontWeight="bold" fontSize="md">
-                            {capitalize(data.name)}
-                          </Text>
-                          <Text fontSize="small">{data.genera}</Text>
-                          <Text fontSize="small">Height: {data.height}m</Text>
-                          <Text fontSize="small">Weight: {data.weight}kg</Text>
-                        </Flex>
-                      )}
-                    </ClassicBox>
+                        backgroundColor="white"
+                        borderWidth="5px"
+                        p="5px"
+                        overflow="auto"
+                      >
+                        {isLoading ? (
+                          <LoadingDots frequency={500} />
+                        ) : (
+                          data.description
+                        )}
+                      </ClassicBox>
+                    </Box>
                   </Flex>
-                  <Box h="150px" w="100%" marginTop="auto">
-                    <ClassicBox
-                      h="100%"
-                      w="100%"
-                      backgroundColor="white"
-                      borderWidth="5px"
-                      p="5px"
-                      overflow="auto"
-                    >
-                      {isLoading ? null : data.description}
-                    </ClassicBox>
-                  </Box>
-                </Flex>
-              )}
+                )
+              ) : null}
             </Box>
           </Box>
           <Box
@@ -425,10 +466,10 @@ const Johto2ndGenDex = () => {
                 width={45}
                 size={164}
                 color={DARK_GRAY}
-                onTopClick={() => onDPadClick(-1)}
-                onBottomClick={() => onDPadClick(1)}
-                onLeftClick={() => onDPadClick(-10)}
-                onRightClick={() => onDPadClick(10)}
+                onTopClick={() => selectPokemon(-1)}
+                onBottomClick={() => selectPokemon(1)}
+                onLeftClick={() => selectPokemon(-10)}
+                onRightClick={() => selectPokemon(10)}
               />
               <Flex flexDir="column" justifyContent="space-around">
                 <Box
@@ -459,6 +500,7 @@ const Johto2ndGenDex = () => {
                   w="50px"
                   h="50px"
                   borderRadius="50%"
+                  onClick={() => setSelectedPokemon(null)}
                 />
                 <Box
                   border="1px solid black"
